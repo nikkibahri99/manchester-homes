@@ -252,6 +252,29 @@
     line-height: 1.4;
     font-weight: 600;
   }
+  .notes-section { margin-top: 2px; }
+  .notes-section label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+  }
+  .notes-input {
+    width: 100%;
+    min-height: 52px;
+    resize: vertical;
+    border: 1px solid var(--chip-border);
+    border-radius: 8px;
+    padding: 8px 9px;
+    font-size: 12.5px;
+    font-family: inherit;
+    color: var(--ink);
+    background: #fdfdfb;
+  }
+  .notes-input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
   .card a.view {
     margin-top: auto;
     display: inline-block;
@@ -400,7 +423,7 @@
     <div class="grid" id="resultsGrid">
 
       <!-- ============ 2 BED CARDS ============ -->
-      <div class="card" data-beds="2" data-area="M1" data-source="Rightmove" data-price="1250" data-movein="2026-10-01" data-flagged="false" data-search="the nile manchester city centre m1">
+      <div class="card" data-beds="2" data-area="M1" data-source="Rightmove" data-price="1250" data-movein="2026-10-01" data-flagged="false" data-search="the nile manchester city centre m1" data-id="the-nile">
         <img class="photo" src="https://media.rightmove.co.uk/property-photo/f479aba05/91968033/f479aba050c2f19dc554d759e4b0d303.jpeg" alt="The Nile">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -410,11 +433,15 @@
           <div class="meta-row"><span>Move-in: <b>1 Oct 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
           <p class="note">Two double bedrooms, balcony, underground parking, short walk to Deansgate station.</p>
           <p class="note">☎ O'Connor Bowden — <b>0161 524 8920</b></p>
-          <a class="view" href="https://www.rightmove.co.uk/properties/91968033" target="_blank" rel="noopener">View on Rightmove →</a>
+                    <div class="notes-section">
+            <label for="notes-the-nile">Your notes</label>
+            <textarea id="notes-the-nile" class="notes-input" data-note-id="the-nile" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.rightmove.co.uk/properties/91968033" target="_blank" rel="noopener">View on Rightmove →</a>
         </div>
       </div>
 
-      <div class="card" data-beds="2" data-area="M1" data-source="Rightmove" data-price="1200" data-movein="2026-09-16" data-flagged="false" data-search="navigation house ducie street northern quarter m1">
+      <div class="card" data-beds="2" data-area="M1" data-source="Rightmove" data-price="1200" data-movein="2026-09-16" data-flagged="false" data-search="navigation house ducie street northern quarter m1" data-id="navigation-house-ducie-street">
         <img class="photo" src="https://media.rightmove.co.uk/property-photo/5211fea90/92038494/5211fea9084fc1153f56122c83bd9d59.jpeg" alt="Navigation House">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -424,11 +451,15 @@
           <div class="meta-row"><span>Move-in: <b>16 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
           <p class="note">Waterside setting in the Ducie Wharf development, balcony included.</p>
           <p class="note">☎ Thornley Groves — <b>0161 241 5875</b></p>
-          <a class="view" href="https://www.rightmove.co.uk/properties/92038494" target="_blank" rel="noopener">View on Rightmove →</a>
+                    <div class="notes-section">
+            <label for="notes-navigation-house-ducie-street">Your notes</label>
+            <textarea id="notes-navigation-house-ducie-street" class="notes-input" data-note-id="navigation-house-ducie-street" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.rightmove.co.uk/properties/92038494" target="_blank" rel="noopener">View on Rightmove →</a>
         </div>
       </div>
 
-      <div class="card" data-beds="2" data-area="M1" data-source="Rightmove" data-price="1300" data-movein="2026-09-03" data-flagged="false" data-search="the wentwood newton street manchester city centre m1">
+      <div class="card" data-beds="2" data-area="M1" data-source="Rightmove" data-price="1300" data-movein="2026-09-03" data-flagged="false" data-search="the wentwood newton street manchester city centre m1" data-id="the-wentwood-newton-street">
         <img class="photo" src="https://media.rightmove.co.uk/property-photo/72c8ae6cf/91910193/72c8ae6cfb9427d8d3cc0e3e34754d44.jpeg" alt="The Wentwood">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -438,11 +469,15 @@
           <div class="meta-row"><span>Move-in: <b>3 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
           <p class="note">Fully furnished, modern finish, private balcony, heart of the city centre.</p>
           <p class="note">☎ Philip James Manchester — <b>0161 524 1595</b></p>
-          <a class="view" href="https://www.rightmove.co.uk/properties/91910193" target="_blank" rel="noopener">View on Rightmove →</a>
+                    <div class="notes-section">
+            <label for="notes-the-wentwood-newton-street">Your notes</label>
+            <textarea id="notes-the-wentwood-newton-street" class="notes-input" data-note-id="the-wentwood-newton-street" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.rightmove.co.uk/properties/91910193" target="_blank" rel="noopener">View on Rightmove →</a>
         </div>
       </div>
 
-      <div class="card" data-beds="2" data-area="M15" data-source="Rightmove" data-price="1250" data-movein="2026-09-15" data-flagged="false" data-search="st georges island kelso place castlefield m15">
+      <div class="card" data-beds="2" data-area="M15" data-source="Rightmove" data-price="1250" data-movein="2026-09-15" data-flagged="false" data-search="st georges island kelso place castlefield m15" data-id="st-georges-island-kelso">
         <img class="photo" src="https://media.rightmove.co.uk/property-photo/7264cf661/92038503/7264cf661e6587b587b06a03068cdd30.jpeg" alt="St Georges Island">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -452,11 +487,15 @@
           <div class="meta-row"><span>Move-in: <b>15 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
           <p class="note">Canal-side in Castlefield, close to Deansgate and Cornbrook Metrolink.</p>
           <p class="note">☎ Thornley Groves — <b>0161 241 5875</b></p>
-          <a class="view" href="https://www.rightmove.co.uk/properties/92038503" target="_blank" rel="noopener">View on Rightmove →</a>
+                    <div class="notes-section">
+            <label for="notes-st-georges-island-kelso">Your notes</label>
+            <textarea id="notes-st-georges-island-kelso" class="notes-input" data-note-id="st-georges-island-kelso" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.rightmove.co.uk/properties/92038503" target="_blank" rel="noopener">View on Rightmove →</a>
         </div>
       </div>
 
-      <div class="card" data-beds="2" data-area="M15" data-source="Rightmove" data-price="1250" data-movein="2026-08-15" data-flagged="false" data-search="medlock place m15">
+      <div class="card" data-beds="2" data-area="M15" data-source="Rightmove" data-price="1250" data-movein="2026-08-15" data-flagged="false" data-search="medlock place m15" data-id="medlock-place">
         <img class="photo" src="https://media.rightmove.co.uk/property-photo/18e88bdfd/91951308/18e88bdfd54722a627a6ad6f6f31972d.jpeg" alt="Medlock Place">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -466,11 +505,15 @@
           <div class="meta-row"><span>Move-in: <b>Now</b></span><span>Council tax: <b>Ask agent</b></span></div>
           <p class="note">Includes parking and garden access, close to the centre.</p>
           <p class="note">☎ via OpenRent — <b>020 3322 3265</b></p>
-          <a class="view" href="https://www.rightmove.co.uk/properties/91951308" target="_blank" rel="noopener">View on Rightmove →</a>
+                    <div class="notes-section">
+            <label for="notes-medlock-place">Your notes</label>
+            <textarea id="notes-medlock-place" class="notes-input" data-note-id="medlock-place" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.rightmove.co.uk/properties/91951308" target="_blank" rel="noopener">View on Rightmove →</a>
         </div>
       </div>
 
-      <div class="card" data-beds="2" data-area="M3" data-source="Rightmove" data-price="1200" data-movein="2026-09-18" data-flagged="false" data-search="zenith chapel street salford m3">
+      <div class="card" data-beds="2" data-area="M3" data-source="Rightmove" data-price="1200" data-movein="2026-09-18" data-flagged="false" data-search="zenith chapel street salford m3" data-id="zenith-chapel-street">
         <img class="photo" src="https://media.rightmove.co.uk/property-photo/965a8b3e8/91966077/965a8b3e85df1472737a4e09e71fe48d.jpeg" alt="Zenith">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -480,11 +523,15 @@
           <div class="meta-row"><span>Move-in: <b>18 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
           <p class="note">Just over the river from Spinningfields, communal roof terrace.</p>
           <p class="note">☎ Reside — <b>0161 524 8177</b></p>
-          <a class="view" href="https://www.rightmove.co.uk/properties/91966077" target="_blank" rel="noopener">View on Rightmove →</a>
+                    <div class="notes-section">
+            <label for="notes-zenith-chapel-street">Your notes</label>
+            <textarea id="notes-zenith-chapel-street" class="notes-input" data-note-id="zenith-chapel-street" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.rightmove.co.uk/properties/91966077" target="_blank" rel="noopener">View on Rightmove →</a>
         </div>
       </div>
 
-      <div class="card" data-beds="2" data-area="M3" data-source="Rightmove" data-price="1175" data-movein="2026-09-16" data-flagged="false" data-search="delta point salford m3">
+      <div class="card" data-beds="2" data-area="M3" data-source="Rightmove" data-price="1175" data-movein="2026-09-16" data-flagged="false" data-search="delta point salford m3" data-id="delta-point">
         <img class="photo" src="https://media.rightmove.co.uk/property-photo/4a20c9825/91976346/4a20c982572fe1adc93deab4d1ab82c7.jpeg" alt="Delta Point">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -495,11 +542,15 @@
           <p class="note">Cheapest of the central options, near city centre with good transport links.</p>
           <p class="note">☎ via OpenRent — <b>020 3322 3265</b></p>
           <p class="enquired">✓ You already enquired about this one on OpenRent</p>
-          <a class="view" href="https://www.rightmove.co.uk/properties/91976346" target="_blank" rel="noopener">View on Rightmove →</a>
+                    <div class="notes-section">
+            <label for="notes-delta-point">Your notes</label>
+            <textarea id="notes-delta-point" class="notes-input" data-note-id="delta-point" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.rightmove.co.uk/properties/91976346" target="_blank" rel="noopener">View on Rightmove →</a>
         </div>
       </div>
 
-      <div class="card" data-beds="2" data-area="M15" data-source="Rightmove" data-price="1300" data-movein="2026-08-15" data-flagged="false" data-search="bold street hulme m15">
+      <div class="card" data-beds="2" data-area="M15" data-source="Rightmove" data-price="1300" data-movein="2026-08-15" data-flagged="false" data-search="bold street hulme m15" data-id="bold-street">
         <img class="photo" src="https://media.rightmove.co.uk/property-photo/00826abf6/90177117/00826abf64e2350f520c0bccc3b12c92.png" alt="Bold Street">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -509,11 +560,15 @@
           <div class="meta-row"><span>Move-in: <b>Now</b></span><span>Council tax: <b>Ask agent</b></span></div>
           <p class="note">Contemporary finish, short hop into the centre from Hulme.</p>
           <p class="note">☎ C &amp; R Properties — <b>0161 524 4976</b></p>
-          <a class="view" href="https://www.rightmove.co.uk/properties/90177117" target="_blank" rel="noopener">View on Rightmove →</a>
+                    <div class="notes-section">
+            <label for="notes-bold-street">Your notes</label>
+            <textarea id="notes-bold-street" class="notes-input" data-note-id="bold-street" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.rightmove.co.uk/properties/90177117" target="_blank" rel="noopener">View on Rightmove →</a>
         </div>
       </div>
 
-      <div class="card" data-beds="2" data-area="M1" data-source="Zoopla" data-price="1350" data-movein="2026-10-05" data-flagged="false" data-search="the lock whitworth street west manchester city centre m1">
+      <div class="card" data-beds="2" data-area="M1" data-source="Zoopla" data-price="1350" data-movein="2026-10-05" data-flagged="false" data-search="the lock whitworth street west manchester city centre m1" data-id="the-lock-whitworth-street">
         <img class="photo" src="https://lid.zoocdn.com/u/480/360/354b72b7e4c008b80cf446832e443040df537b82.jpg" alt="The Lock, Whitworth Street West">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -523,11 +578,15 @@
           <div class="meta-row"><span>Move-in: <b>5 Oct 2026</b></span><span>Council tax: <b>Band D</b></span></div>
           <p class="note">6th floor, parking included, close to the universities and Deansgate.</p>
           <p class="note">☎ Stevenson Whyte — <b>01615 066871</b></p>
-          <a class="view" href="https://www.zoopla.co.uk/to-rent/details/55019541" target="_blank" rel="noopener">View on Zoopla →</a>
+                    <div class="notes-section">
+            <label for="notes-the-lock-whitworth-street">Your notes</label>
+            <textarea id="notes-the-lock-whitworth-street" class="notes-input" data-note-id="the-lock-whitworth-street" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.zoopla.co.uk/to-rent/details/55019541" target="_blank" rel="noopener">View on Zoopla →</a>
         </div>
       </div>
 
-      <div class="card" data-beds="2" data-area="M14" data-source="Zoopla" data-price="1325" data-movein="2026-08-29" data-flagged="false" data-search="rusholme place devell house m14">
+      <div class="card" data-beds="2" data-area="M14" data-source="Zoopla" data-price="1325" data-movein="2026-08-29" data-flagged="false" data-search="rusholme place devell house m14" data-id="rusholme-place-devell-house">
         <img class="photo" src="https://lid.zoocdn.com/u/480/360/7b2f0a6cb53434739b5525df67c9278f9fe518df.jpg" alt="Rusholme Place">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -537,11 +596,15 @@
           <div class="meta-row"><span>Move-in: <b>29 Aug 2026</b></span><span>Council tax: <b>Band B</b></span></div>
           <p class="note">Near University of Manchester. Balcony, ensuite, lift, parking. Bit further from the centre than the others here.</p>
           <p class="note">☎ Property Genius — <b>01619 375002</b></p>
-          <a class="view" href="https://www.zoopla.co.uk/to-rent/details/73989397" target="_blank" rel="noopener">View on Zoopla →</a>
+                    <div class="notes-section">
+            <label for="notes-rusholme-place-devell-house">Your notes</label>
+            <textarea id="notes-rusholme-place-devell-house" class="notes-input" data-note-id="rusholme-place-devell-house" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.zoopla.co.uk/to-rent/details/73989397" target="_blank" rel="noopener">View on Zoopla →</a>
         </div>
       </div>
 
-      <div class="card" data-beds="2" data-area="M15" data-source="Zoopla" data-price="1350" data-movein="2026-10-10" data-flagged="false" data-search="city road east city south m15">
+      <div class="card" data-beds="2" data-area="M15" data-source="Zoopla" data-price="1350" data-movein="2026-10-10" data-flagged="false" data-search="city road east city south m15" data-id="city-road-east-city">
         <img class="photo" src="https://lid.zoocdn.com/u/480/360/242e051c33efbcb4f584042eb11dd8df5000efad.jpg" alt="City Road East">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -551,11 +614,15 @@
           <div class="meta-row"><span>Move-in: <b>10 Oct 2026</b></span><span>Council tax: <b>Band D</b></span></div>
           <p class="note">Secure parking, prime spot near the centre.</p>
           <p class="note">☎ Property Genius — <b>01619 379802</b></p>
-          <a class="view" href="https://www.zoopla.co.uk/to-rent/details/73986392" target="_blank" rel="noopener">View on Zoopla →</a>
+                    <div class="notes-section">
+            <label for="notes-city-road-east-city">Your notes</label>
+            <textarea id="notes-city-road-east-city" class="notes-input" data-note-id="city-road-east-city" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.zoopla.co.uk/to-rent/details/73986392" target="_blank" rel="noopener">View on Zoopla →</a>
         </div>
       </div>
 
-      <div class="card" data-beds="2" data-area="M3" data-source="Zoopla" data-price="1300" data-movein="2026-08-31" data-flagged="false" data-search="spectrum block 3 blackfriars road salford m3">
+      <div class="card" data-beds="2" data-area="M3" data-source="Zoopla" data-price="1300" data-movein="2026-08-31" data-flagged="false" data-search="spectrum block 3 blackfriars road salford m3" data-id="spectrum-block-3-blackfriars">
         <img class="photo" src="https://lid.zoocdn.com/u/480/360/a8723ebb8ca7fa7be1762ced765bd1990369e390.jpg" alt="Spectrum Block 3">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -565,11 +632,15 @@
           <div class="meta-row"><span>Move-in: <b>31 Aug 2026</b></span><span>Council tax: <b>Band D</b></span></div>
           <p class="note">Short walk from Deansgate and Spinningfields. No pets except service dogs (building policy).</p>
           <p class="note">☎ Jordan Fishwick — <b>01615 061588</b></p>
-          <a class="view" href="https://www.zoopla.co.uk/to-rent/details/73971248" target="_blank" rel="noopener">View on Zoopla →</a>
+                    <div class="notes-section">
+            <label for="notes-spectrum-block-3-blackfriars">Your notes</label>
+            <textarea id="notes-spectrum-block-3-blackfriars" class="notes-input" data-note-id="spectrum-block-3-blackfriars" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.zoopla.co.uk/to-rent/details/73971248" target="_blank" rel="noopener">View on Zoopla →</a>
         </div>
       </div>
 
-      <div class="card" data-beds="2" data-area="M3" data-source="OpenRent" data-price="1250" data-movein="2026-09-20" data-flagged="false" data-search="quebec building m3">
+      <div class="card" data-beds="2" data-area="M3" data-source="OpenRent" data-price="1250" data-movein="2026-09-20" data-flagged="false" data-search="quebec building m3" data-id="quebec-building">
         <img class="photo" src="https://imagescdn.openrent.co.uk/listings/1334079/o_1ft36u9s698k1slvo22e2l8ck.JPG" alt="Quebec Building 2-bed">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -580,11 +651,15 @@
           <p class="note">Two double bedrooms, 3-minute walk to Deansgate.</p>
           <p class="note">Contact via OpenRent enquiry form (private landlord, no listed phone).</p>
           <p class="enquired">✓ You already enquired about this one</p>
-          <a class="view" href="https://www.openrent.co.uk/3000861" target="_blank" rel="noopener">View on OpenRent →</a>
+                    <div class="notes-section">
+            <label for="notes-quebec-building">Your notes</label>
+            <textarea id="notes-quebec-building" class="notes-input" data-note-id="quebec-building" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.openrent.co.uk/3000861" target="_blank" rel="noopener">View on OpenRent →</a>
         </div>
       </div>
 
-      <div class="card" data-beds="2" data-area="M4" data-source="OpenRent" data-price="1300" data-movein="2026-08-23" data-flagged="false" data-search="barton place m4">
+      <div class="card" data-beds="2" data-area="M4" data-source="OpenRent" data-price="1300" data-movein="2026-08-23" data-flagged="false" data-search="barton place m4" data-id="barton-place">
         <img class="photo" src="https://imagescdn.openrent.co.uk/listings/2571036/o_1j1dcjed11aehqg833bj5o1pue0.JPG" alt="Barton Place">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -594,11 +669,15 @@
           <div class="meta-row"><span>Move-in: <b>23 Aug 2026</b></span><span>Council tax: <b>Not listed</b></span></div>
           <p class="note">Top floor, allocated parking space.</p>
           <p class="note">Contact via OpenRent enquiry form (private landlord, no listed phone).</p>
-          <a class="view" href="https://www.openrent.co.uk/2984768" target="_blank" rel="noopener">View on OpenRent →</a>
+                    <div class="notes-section">
+            <label for="notes-barton-place">Your notes</label>
+            <textarea id="notes-barton-place" class="notes-input" data-note-id="barton-place" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.openrent.co.uk/2984768" target="_blank" rel="noopener">View on OpenRent →</a>
         </div>
       </div>
 
-      <div class="card" data-beds="2" data-area="M4" data-source="OpenRent" data-price="1350" data-movein="2026-08-10" data-flagged="false" data-search="malta street m4">
+      <div class="card" data-beds="2" data-area="M4" data-source="OpenRent" data-price="1350" data-movein="2026-08-10" data-flagged="false" data-search="malta street m4" data-id="malta-street">
         <img class="photo" src="https://imagescdn.openrent.co.uk/listings/2238124/o_1ibecgtvv10t81ksl1j66vqe8r05.JPG" alt="Malta Street">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -608,12 +687,16 @@
           <div class="meta-row"><span>Move-in: <b>10 Aug 2026</b></span><span>Council tax: <b>Not listed</b></span></div>
           <p class="note">Green Quarter / Northern Quarter side.</p>
           <p class="note">Contact via OpenRent enquiry form (private landlord, no listed phone).</p>
-          <a class="view" href="https://www.openrent.co.uk/2983935" target="_blank" rel="noopener">View on OpenRent →</a>
+                    <div class="notes-section">
+            <label for="notes-malta-street">Your notes</label>
+            <textarea id="notes-malta-street" class="notes-input" data-note-id="malta-street" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.openrent.co.uk/2983935" target="_blank" rel="noopener">View on OpenRent →</a>
         </div>
       </div>
 
       <!-- ============ 1 BED CARDS ============ -->
-      <div class="card" data-beds="1" data-area="M4" data-source="Rightmove" data-price="995" data-movein="2026-09-02" data-flagged="false" data-search="the umbrella factory shudehill northern quarter m4">
+      <div class="card" data-beds="1" data-area="M4" data-source="Rightmove" data-price="995" data-movein="2026-09-02" data-flagged="false" data-search="the umbrella factory shudehill northern quarter m4" data-id="the-umbrella-factory-shudehill">
         <img class="photo" src="https://media.rightmove.co.uk/property-photo/add7ec848/91862565/add7ec848a06638a72e73501c8e121be.jpeg" alt="The Umbrella Factory">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -623,11 +706,15 @@
           <div class="meta-row"><span>Move-in: <b>2 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
           <p class="note">Proper separate lounge and bedroom, converted mill next to Shudehill tram stop.</p>
           <p class="note">☎ Philip James Manchester — <b>0161 524 1595</b></p>
-          <a class="view" href="https://www.rightmove.co.uk/properties/91862565" target="_blank" rel="noopener">View on Rightmove →</a>
+                    <div class="notes-section">
+            <label for="notes-the-umbrella-factory-shudehill">Your notes</label>
+            <textarea id="notes-the-umbrella-factory-shudehill" class="notes-input" data-note-id="the-umbrella-factory-shudehill" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.rightmove.co.uk/properties/91862565" target="_blank" rel="noopener">View on Rightmove →</a>
         </div>
       </div>
 
-      <div class="card" data-beds="1" data-area="M5" data-source="Rightmove" data-price="950" data-movein="2026-09-07" data-flagged="false" data-search="ordsall lane salford m5">
+      <div class="card" data-beds="1" data-area="M5" data-source="Rightmove" data-price="950" data-movein="2026-09-07" data-flagged="false" data-search="ordsall lane salford m5" data-id="ordsall-lane">
         <img class="photo" src="https://media.rightmove.co.uk/property-photo/0ce90f086/91853799/0ce90f086e5d1e15708d1fe85460a44a.jpeg" alt="Ordsall Lane">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -637,11 +724,15 @@
           <div class="meta-row"><span>Move-in: <b>7 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
           <p class="note">Exact match for your move-in window. About a mile from the centre.</p>
           <p class="note">☎ via OpenRent — <b>020 3322 3265</b></p>
-          <a class="view" href="https://www.rightmove.co.uk/properties/91853799" target="_blank" rel="noopener">View on Rightmove →</a>
+                    <div class="notes-section">
+            <label for="notes-ordsall-lane">Your notes</label>
+            <textarea id="notes-ordsall-lane" class="notes-input" data-note-id="ordsall-lane" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.rightmove.co.uk/properties/91853799" target="_blank" rel="noopener">View on Rightmove →</a>
         </div>
       </div>
 
-      <div class="card" data-beds="1" data-area="M3" data-source="Rightmove" data-price="950" data-movein="2026-08-27" data-flagged="false" data-search="the royal wilton place salford m3">
+      <div class="card" data-beds="1" data-area="M3" data-source="Rightmove" data-price="950" data-movein="2026-08-27" data-flagged="false" data-search="the royal wilton place salford m3" data-id="the-royal-wilton-place">
         <img class="photo" src="https://media.rightmove.co.uk/property-photo/018f39eff/175052195/018f39efff9eb562951c92e828b3598b.jpeg" alt="The Royal">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -651,11 +742,15 @@
           <div class="meta-row"><span>Move-in: <b>27 Aug 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
           <p class="note">Separate living room, close to the city centre.</p>
           <p class="note">☎ Philip James Manchester — <b>0161 524 1595</b></p>
-          <a class="view" href="https://www.rightmove.co.uk/properties/175052195" target="_blank" rel="noopener">View on Rightmove →</a>
+                    <div class="notes-section">
+            <label for="notes-the-royal-wilton-place">Your notes</label>
+            <textarea id="notes-the-royal-wilton-place" class="notes-input" data-note-id="the-royal-wilton-place" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.rightmove.co.uk/properties/175052195" target="_blank" rel="noopener">View on Rightmove →</a>
         </div>
       </div>
 
-      <div class="card" data-beds="1" data-area="M3" data-source="Rightmove" data-price="900" data-movein="2026-08-27" data-flagged="false" data-search="quebec building m3 1 bed">
+      <div class="card" data-beds="1" data-area="M3" data-source="Rightmove" data-price="900" data-movein="2026-08-27" data-flagged="false" data-search="quebec building m3 1 bed" data-id="quebec-building-2">
         <img class="photo" src="https://media.rightmove.co.uk/property-photo/791432ac1/90270393/791432ac17a6d89f1bbb62681453adb9.jpeg" alt="Quebec Building 1-bed">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -665,11 +760,15 @@
           <div class="meta-row"><span>Move-in: <b>27 Aug 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
           <p class="note">Double bedroom, private balcony, ~5 min walk to the centre.</p>
           <p class="note">☎ Belvoir — <b>0161 524 7183</b></p>
-          <a class="view" href="https://www.rightmove.co.uk/properties/90270393" target="_blank" rel="noopener">View on Rightmove →</a>
+                    <div class="notes-section">
+            <label for="notes-quebec-building-2">Your notes</label>
+            <textarea id="notes-quebec-building-2" class="notes-input" data-note-id="quebec-building-2" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.rightmove.co.uk/properties/90270393" target="_blank" rel="noopener">View on Rightmove →</a>
         </div>
       </div>
 
-      <div class="card" data-beds="1" data-area="M3" data-source="Rightmove" data-price="880" data-movein="2026-08-15" data-flagged="true" data-search="adelphi st salford m3">
+      <div class="card" data-beds="1" data-area="M3" data-source="Rightmove" data-price="880" data-movein="2026-08-15" data-flagged="true" data-search="adelphi st salford m3" data-id="adelphi-st">
         <img class="photo" src="https://media.rightmove.co.uk/property-photo/7bea50dfd/91991505/7bea50dfd8b247be5c0aa2a52afbc937.jpeg" alt="Adelphi St">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -680,11 +779,15 @@
           <p class="note">Good value, near the centre.</p>
           <p class="note">☎ via OpenRent — <b>020 3322 3265</b></p>
           <p class="flag">⚠ Building has a communal entrance/corridor (normal for apartment blocks) — the flat itself is private, not shared.</p>
-          <a class="view" href="https://www.rightmove.co.uk/properties/91991505" target="_blank" rel="noopener">View on Rightmove →</a>
+                    <div class="notes-section">
+            <label for="notes-adelphi-st">Your notes</label>
+            <textarea id="notes-adelphi-st" class="notes-input" data-note-id="adelphi-st" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.rightmove.co.uk/properties/91991505" target="_blank" rel="noopener">View on Rightmove →</a>
         </div>
       </div>
 
-      <div class="card" data-beds="1" data-area="M1" data-source="Rightmove" data-price="825" data-movein="2026-08-15" data-flagged="true" data-search="bracken house charles street manchester city centre m1">
+      <div class="card" data-beds="1" data-area="M1" data-source="Rightmove" data-price="825" data-movein="2026-08-15" data-flagged="true" data-search="bracken house charles street manchester city centre m1" data-id="bracken-house-charles-street">
         <img class="photo" src="https://media.rightmove.co.uk/property-photo/ff7089f0d/91862586/ff7089f0d06609e33a23ae95fde84523.jpeg" alt="Bracken House">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -695,11 +798,15 @@
           <p class="note">Cheapest option, right off Oxford Road near the university.</p>
           <p class="note">☎ Philip James Manchester — <b>0161 524 1595</b></p>
           <p class="flag">⚠ Photos show the bed in the same open room as the sofa/kitchen — may live more like a studio despite being listed as 1 bed. Confirm with the agent.</p>
-          <a class="view" href="https://www.rightmove.co.uk/properties/91862586" target="_blank" rel="noopener">View on Rightmove →</a>
+                    <div class="notes-section">
+            <label for="notes-bracken-house-charles-street">Your notes</label>
+            <textarea id="notes-bracken-house-charles-street" class="notes-input" data-note-id="bracken-house-charles-street" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.rightmove.co.uk/properties/91862586" target="_blank" rel="noopener">View on Rightmove →</a>
         </div>
       </div>
 
-      <div class="card" data-beds="1" data-area="M3" data-source="Zoopla" data-price="1000" data-movein="2026-09-22" data-flagged="false" data-search="adelphi wharf 3 salford m3">
+      <div class="card" data-beds="1" data-area="M3" data-source="Zoopla" data-price="1000" data-movein="2026-09-22" data-flagged="false" data-search="adelphi wharf 3 salford m3" data-id="adelphi-wharf-3">
         <img class="photo" src="https://lid.zoocdn.com/u/480/360/6e647b722e57f0e42c79865c3537ac3ea8930590.jpg" alt="Adelphi Wharf 3">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -709,11 +816,15 @@
           <div class="meta-row"><span>Move-in: <b>22 Sep 2026</b></span><span>Council tax: <b>Band A</b></span></div>
           <p class="note">At the top of your budget, and a little later than your target week — but a genuinely private flat, no shared facilities.</p>
           <p class="note">☎ Qube Residential — <b>01619 376276</b></p>
-          <a class="view" href="https://www.zoopla.co.uk/to-rent/details/58152844" target="_blank" rel="noopener">View on Zoopla →</a>
+                    <div class="notes-section">
+            <label for="notes-adelphi-wharf-3">Your notes</label>
+            <textarea id="notes-adelphi-wharf-3" class="notes-input" data-note-id="adelphi-wharf-3" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.zoopla.co.uk/to-rent/details/58152844" target="_blank" rel="noopener">View on Zoopla →</a>
         </div>
       </div>
 
-      <div class="card" data-beds="1" data-area="M4" data-source="OpenRent" data-price="950" data-movein="2026-08-15" data-flagged="false" data-search="withy grove m4 northern quarter corn exchange">
+      <div class="card" data-beds="1" data-area="M4" data-source="OpenRent" data-price="950" data-movein="2026-08-15" data-flagged="false" data-search="withy grove m4 northern quarter corn exchange" data-id="withy-grove">
         <img class="photo" src="https://imagescdn.openrent.co.uk/listings/2806988/o_1jia5j0qucm11ohb1pdolc21ot4.JPG" alt="Withy Grove">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -723,11 +834,15 @@
           <div class="meta-row"><span>Move-in: <b>Ask landlord</b></span><span>Council tax: <b>Not listed</b></span></div>
           <p class="note">Immaculately presented, close to Corn Exchange and Northern Quarter.</p>
           <p class="note">Contact via OpenRent enquiry form (private landlord, no listed phone).</p>
-          <a class="view" href="https://www.openrent.co.uk/2999293" target="_blank" rel="noopener">View on OpenRent →</a>
+                    <div class="notes-section">
+            <label for="notes-withy-grove">Your notes</label>
+            <textarea id="notes-withy-grove" class="notes-input" data-note-id="withy-grove" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.openrent.co.uk/2999293" target="_blank" rel="noopener">View on OpenRent →</a>
         </div>
       </div>
 
-      <div class="card" data-beds="1" data-area="M4" data-source="OpenRent" data-price="1000" data-movein="2026-08-03" data-flagged="false" data-search="masson place m4">
+      <div class="card" data-beds="1" data-area="M4" data-source="OpenRent" data-price="1000" data-movein="2026-08-03" data-flagged="false" data-search="masson place m4" data-id="masson-place">
         <img class="photo" src="https://imagescdn.openrent.co.uk/listings/2070576/o_1hta5mu916il1egb1qfi1l0h9hd2.JPG" alt="Masson Place">
         <button class="star-btn" aria-label="Star this listing">★</button>
         <div class="card-body">
@@ -737,7 +852,141 @@
           <div class="meta-row"><span>Move-in: <b>3 Aug 2026</b></span><span>Council tax: <b>Not listed</b></span></div>
           <p class="note">At the top of your budget, but private and centrally located.</p>
           <p class="note">Contact via OpenRent enquiry form (private landlord, no listed phone).</p>
-          <a class="view" href="https://www.openrent.co.uk/2991034" target="_blank" rel="noopener">View on OpenRent →</a>
+                    <div class="notes-section">
+            <label for="notes-masson-place">Your notes</label>
+            <textarea id="notes-masson-place" class="notes-input" data-note-id="masson-place" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+<a class="view" href="https://www.openrent.co.uk/2991034" target="_blank" rel="noopener">View on OpenRent →</a>
+        </div>
+      </div>
+
+      <!-- ============ NEW LISTINGS ADDED 15 AUG 2026 ============ -->
+      <div class="card" data-beds="1" data-area="M1" data-source="Rightmove" data-price="1300" data-movein="2026-09-01" data-flagged="true" data-search="granby row manchester m1" data-id="granby-row">
+        <img class="photo" src="https://media.rightmove.co.uk/dir/property-photo/b514adbda/91757949/b514adbdaa8cf4d91897ad38d1b19346_max_656x437.jpeg" alt="Granby Row">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,300 pcm</span><div class="badges"><span class="badge">1 bed · 1 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">Granby Row</p>
+          <p class="area">Manchester City Centre, M1</p>
+          <div class="meta-row"><span>Move-in: <b>1 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">Fully furnished double bedroom in a Grade II listed conversion with original windows.</p>
+          <p class="note">☎ Savills Lettings — <b>0161 524 3556</b></p>
+          <p class="flag">⚠ Building has a gym, yoga studio, and co-working space — more of a shared-amenity block than the other flats here, and at the top of budget.</p>
+          <div class="notes-section">
+            <label for="notes-granby-row">Your notes</label>
+            <textarea id="notes-granby-row" class="notes-input" data-note-id="granby-row" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.rightmove.co.uk/properties/91757949" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="1" data-area="M4" data-source="Rightmove" data-price="800" data-movein="2026-09-01" data-flagged="false" data-search="lampwick lane new islington m4 chips" data-id="lampwick-lane">
+        <img class="photo" src="https://media.rightmove.co.uk/dir/property-photo/c080ecf7d/92020695/c080ecf7d78f66d72fe3d775224a77c6_max_656x437.jpeg" alt="Lampwick Lane">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£800 pcm</span><div class="badges"><span class="badge">1 bed · 1 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">Lampwick Lane</p>
+          <p class="area">New Islington, M4</p>
+          <div class="meta-row"><span>Move-in: <b>1 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">In the Chips building on New Islington Marina — Rent to Buy scheme, rent set at 80% of market rate.</p>
+          <p class="note">☎ Plumlife — <b>0161 241 1002</b></p>
+          <div class="notes-section">
+            <label for="notes-lampwick-lane">Your notes</label>
+            <textarea id="notes-lampwick-lane" class="notes-input" data-note-id="lampwick-lane" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.rightmove.co.uk/properties/92020695" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="1" data-area="M1" data-source="OpenRent" data-price="1250" data-movein="2026-08-22" data-flagged="false" data-search="princess street manchester m1" data-id="princess-street">
+        <img class="photo" src="https://imagescdn.openrent.co.uk/listings/1160289/o_1fafmoisc1tk0euo195r14e612dgn.JPG" alt="Princess Street">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,250 pcm</span><div class="badges"><span class="badge">1 bed · 1 bath</span><span class="badge source">OpenRent</span></div></div>
+          <p class="address">Princess Street</p>
+          <p class="area">M1</p>
+          <div class="meta-row"><span>Move-in: <b>22 Aug 2026</b></span><span>Council tax: <b>Not listed</b></span></div>
+          <p class="note">Furnished flat with garden access, parking, and a fireplace.</p>
+          <p class="note">Contact via OpenRent enquiry form (private landlord, no listed phone).</p>
+          <div class="notes-section">
+            <label for="notes-princess-street">Your notes</label>
+            <textarea id="notes-princess-street" class="notes-input" data-note-id="princess-street" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.openrent.co.uk/property-to-rent/manchester/1-bed-flat-princess-street-m1/2950755" target="_blank" rel="noopener">View on OpenRent →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="1" data-area="M3" data-source="OpenRent" data-price="1350" data-movein="2026-08-15" data-flagged="true" data-search="quay st salford m3 affinity living" data-id="quay-st">
+        <img class="photo" src="https://imagescdn.openrent.co.uk/listings/2995539/o_1jvc7rbve1puhllhr2g1i51k5q0.JPG" alt="Quay St">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,350 pcm</span><div class="badges"><span class="badge">1 bed · 1 bath</span><span class="badge source">OpenRent</span></div></div>
+          <p class="address">Quay St, Affinity Living</p>
+          <p class="area">Salford, M3</p>
+          <div class="meta-row"><span>Move-in: <b>Now</b></span><span>Council tax: <b>Not listed</b></span></div>
+          <p class="note">Floor-to-ceiling windows with panoramic skyline views.</p>
+          <p class="note">Contact via OpenRent enquiry form (private landlord, no listed phone).</p>
+          <p class="flag">⚠ Building-wide gym and co-working space, and at the very top of budget — same trade-off as Granby Row.</p>
+          <div class="notes-section">
+            <label for="notes-quay-st">Your notes</label>
+            <textarea id="notes-quay-st" class="notes-input" data-note-id="quay-st" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.openrent.co.uk/property-to-rent/salford/1-bed-flat-quay-st-m3/2995539" target="_blank" rel="noopener">View on OpenRent →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M5" data-source="Rightmove" data-price="1025" data-movein="2026-09-01" data-flagged="false" data-search="fusion 6 middlewood street salford m5" data-id="fusion-6">
+        <img class="photo" src="https://media.rightmove.co.uk/dir/property-photo/8989a6d56/91862562/8989a6d561fd68ecb6dee4ac9f105ecf_max_656x437.jpeg" alt="Fusion 6">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,025 pcm</span><div class="badges"><span class="badge">2 bed · 1 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">Fusion 6, Middlewood Street</p>
+          <p class="area">Salford, M5</p>
+          <div class="meta-row"><span>Move-in: <b>1 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">Separate kitchen with integrated appliances, open-plan lounge/dining area.</p>
+          <p class="note">☎ Philip James Manchester — <b>0161 524 1595</b></p>
+          <div class="notes-section">
+            <label for="notes-fusion-6">Your notes</label>
+            <textarea id="notes-fusion-6" class="notes-input" data-note-id="fusion-6" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.rightmove.co.uk/properties/91862562" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M4" data-source="Rightmove" data-price="1150" data-movein="2026-08-15" data-flagged="false" data-search="advent house ancoats m4" data-id="advent-house">
+        <img class="photo" src="https://media.rightmove.co.uk/dir/property-photo/9aa063b5b/172467575/9aa063b5b6655e2a22be206a5057b5e5_max_656x437.png" alt="Advent House">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,150 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">Advent House</p>
+          <p class="area">Ancoats, M4</p>
+          <div class="meta-row"><span>Move-in: <b>Now</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">Newly decorated, neutral décor, modern fittings — good transport links.</p>
+          <p class="note">☎ Malthouse Lettings — <b>01903 969097</b></p>
+          <div class="notes-section">
+            <label for="notes-advent-house">Your notes</label>
+            <textarea id="notes-advent-house" class="notes-input" data-note-id="advent-house" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.rightmove.co.uk/properties/172467575" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M3" data-source="OpenRent" data-price="1500" data-movein="2026-10-03" data-flagged="true" data-search="clowes st the edge salford m3" data-id="clowes-st">
+        <img class="photo" src="https://imagescdn.openrent.co.uk/listings/2998195/o_1jvl8njrn151o1rsa1d3af3o18nu7.JPG" alt="Clowes St, The Edge">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,500 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">OpenRent</span></div></div>
+          <p class="address">Clowes St, The Edge</p>
+          <p class="area">Salford, M3</p>
+          <div class="meta-row"><span>Move-in: <b>3 Oct 2026</b></span><span>Council tax: <b>Not listed</b></span></div>
+          <p class="note">Riverside views, open-plan living, private balcony, secure parking.</p>
+          <p class="note">Contact via OpenRent enquiry form (private landlord, no listed phone).</p>
+          <p class="flag">⚠ Above your usual 2-bed budget ceiling (£1,500 vs ~£1,350 elsewhere), and has 24hr concierge — a bigger building than the others on this list.</p>
+          <div class="notes-section">
+            <label for="notes-clowes-st">Your notes</label>
+            <textarea id="notes-clowes-st" class="notes-input" data-note-id="clowes-st" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.openrent.co.uk/property-to-rent/salford/2-bed-flat-clowes-st-m3/2998195" target="_blank" rel="noopener">View on OpenRent →</a>
         </div>
       </div>
 
@@ -824,6 +1073,19 @@
       starred[id] = !starred[id];
       btn.classList.toggle('starred', !!starred[id]);
       if (state.starredOnly) render();
+    });
+  });
+
+  var NOTES_KEY = 'mrs-notes-v1';
+  var notesStore = {};
+  try { notesStore = JSON.parse(localStorage.getItem(NOTES_KEY) || '{}'); } catch (e) { notesStore = {}; }
+
+  Array.prototype.forEach.call(document.querySelectorAll('.notes-input'), function (ta) {
+    var id = ta.dataset.noteId;
+    if (notesStore[id]) ta.value = notesStore[id];
+    ta.addEventListener('input', function () {
+      notesStore[id] = ta.value;
+      try { localStorage.setItem(NOTES_KEY, JSON.stringify(notesStore)); } catch (e) {}
     });
   });
 
