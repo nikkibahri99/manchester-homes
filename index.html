@@ -61,6 +61,12 @@
     padding: 16px 18px;
     margin: 22px 0 26px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    transition: transform 0.25s ease, opacity 0.2s ease;
+  }
+  .filters.filters-hidden {
+    transform: translateY(-16px) scale(0.98);
+    opacity: 0;
+    pointer-events: none;
   }
   .filter-row {
     display: flex;
@@ -1394,6 +1400,28 @@
       metaRow.appendChild(span);
     });
   }
+
+  // ---- Collapse the filter bar on scroll down, reveal on scroll up ----
+  var filtersBar = document.querySelector('.filters');
+  var lastScrollY = window.scrollY;
+  var scrollTicking = false;
+  function handleScroll() {
+    var currentY = window.scrollY;
+    var delta = currentY - lastScrollY;
+    if (currentY > 140 && delta > 4) {
+      filtersBar.classList.add('filters-hidden');
+    } else if (delta < -4 || currentY <= 140) {
+      filtersBar.classList.remove('filters-hidden');
+    }
+    lastScrollY = currentY;
+    scrollTicking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!scrollTicking) {
+      requestAnimationFrame(handleScroll);
+      scrollTicking = true;
+    }
+  }, { passive: true });
 
   grid.style.display = 'grid';
   cards.forEach(function (c) { c.style.order = 0; });
