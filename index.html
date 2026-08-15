@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Manchester Rental Shortlist</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <style>
   :root {
     --bg: #f7f7f5;
@@ -322,6 +323,24 @@
   @media (max-width: 640px) {
     .filters { position: static; }
   }
+
+  .map-section {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px 18px 18px;
+    margin: 0 0 26px;
+  }
+  .map-section h2 { font-size: 17px; margin: 0 0 4px; }
+  .map-caption { font-size: 12.5px; color: var(--ink-soft); margin: 0 0 12px; line-height: 1.5; }
+  #map { height: 440px; border-radius: 10px; border: 1px solid var(--line); }
+  .map-legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; font-size: 12.5px; color: var(--ink-soft); }
+  .map-legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend-dot { width: 11px; height: 11px; border-radius: 50%; display: inline-block; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0,0,0,0.25); }
+  .leaflet-popup-content { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; font-size: 13px; line-height: 1.5; }
+  .leaflet-popup-content b { display: block; margin-bottom: 2px; }
+  .leaflet-popup-content .popup-dist { color: #55584f; font-size: 12px; }
+  .leaflet-popup-content a { color: #2f6f4f; font-weight: 600; }
 </style>
 </head>
 <body>
@@ -414,6 +433,19 @@
     </div>
   </div>
   <!-- ============== END FILTER BAR ============== -->
+
+  <!-- ================= MAP ================= -->
+  <div class="map-section">
+    <h2>Map — distance to city centre &amp; UrbanChain</h2>
+    <p class="map-caption">Straight-line ("as the crow flies") distance from each listing's postcode area to Manchester city centre (St Peter's Square) and your UrbanChain office (Manchester Science Park, Greenheys Lane, M15). Pins are placed at the postcode area's approximate centre, not the exact building — click a pin for details. Only listings currently shown by the filters above appear on the map.</p>
+    <div id="map"></div>
+    <div class="map-legend">
+      <span><i class="legend-dot" style="background:#1f2320"></i> City centre</span>
+      <span><i class="legend-dot" style="background:#c0392b"></i> UrbanChain office</span>
+      <span><i class="legend-dot" style="background:#2f6f4f"></i> Listing</span>
+    </div>
+  </div>
+  <!-- ============== END MAP ============== -->
 
   <section>
     <div class="section-head">
@@ -990,6 +1022,117 @@
         </div>
       </div>
 
+      <!-- ============ M15 1-BED LISTINGS ADDED 15 AUG 2026 (near UrbanChain, Greenheys Lane) ============ -->
+      <div class="card" data-beds="1" data-area="M15" data-source="Rightmove" data-price="975" data-movein="2026-09-30" data-flagged="false" data-search="queens brewery court moss lane west m15 hulme" data-id="queens-brewery-court">
+        <img class="photo" src="https://media.rightmove.co.uk/dir/property-photo/e205be230/70600370/e205be230a67062fe3d61b8f83a3dba7_max_656x437.jpeg" alt="Queen's Brewery Court">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£975 pcm</span><div class="badges"><span class="badge">1 bed · 1 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">Flat 14, Queen's Brewery Court, 46 Moss Lane West</p>
+          <p class="area">Hulme/Whalley Range border, M15</p>
+          <div class="meta-row"><span>Move-in: <b>30 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">True 1-bed with separate bedroom, not a studio. On Moss Lane West — a short walk from Greenheys Lane / Manchester Science Park.</p>
+          <p class="note">☎ Primo Property Management — <b>01204 326830</b></p>
+          <div class="notes-section">
+            <label for="notes-queens-brewery-court">Your notes</label>
+            <textarea id="notes-queens-brewery-court" class="notes-input" data-note-id="queens-brewery-court" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.rightmove.co.uk/properties/70600370" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="1" data-area="M15" data-source="OpenRent" data-price="1300" data-movein="2026-08-15" data-flagged="true" data-search="burlington square boundary lane m15 hulme" data-id="burlington-square">
+        <img class="photo" src="https://imagescdn.openrent.co.uk/listings/2939569/o_1jruu9r231e2or4v189qvv51opd2.JPG" alt="Burlington Square, Boundary Lane">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,300 pcm</span><div class="badges"><span class="badge">1 bed · 1 bath</span><span class="badge source">OpenRent</span></div></div>
+          <p class="address">2nd Floor, Burlington Square, Boundary Lane</p>
+          <p class="area">Hulme, M15</p>
+          <div class="meta-row"><span>Move-in: <b>Now</b></span><span>Council tax: <b>Not listed</b></span></div>
+          <p class="note">True 1-bed, spacious double bedroom with wardrobes, separate kitchen. Likely the closest option here to Greenheys Lane.</p>
+          <p class="note">Contact via OpenRent enquiry form (private landlord, no listed phone).</p>
+          <p class="flag">⚠ Building has a residents' lounge, gym, and 24hr concierge — bigger amenity building than most others on this list, and near the top of budget.</p>
+          <div class="notes-section">
+            <label for="notes-burlington-square">Your notes</label>
+            <textarea id="notes-burlington-square" class="notes-input" data-note-id="burlington-square" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.openrent.co.uk/property-to-rent/manchester/1-bed-flat-boundary-lane-m15/2939569" target="_blank" rel="noopener">View on OpenRent →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="1" data-area="M15" data-source="Rightmove" data-price="950" data-movein="2026-09-28" data-flagged="false" data-search="bentinck street castlefield m15" data-id="bentinck-street">
+        <img class="photo" src="https://media.rightmove.co.uk/dir/property-photo/2def6b877/91397409/2def6b8775388f60142431a97fd4237a_max_656x437.jpeg" alt="Bentinck Street">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£950 pcm</span><div class="badges"><span class="badge">1 bed · 1 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">Bentinck Street</p>
+          <p class="area">Castlefield, M15</p>
+          <div class="meta-row"><span>Move-in: <b>28 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">True 1-bed: open-plan living room, double bedroom, main bathroom suite. Shared roof terrace, 10 min walk to Deansgate.</p>
+          <p class="note">☎ NPP Residential — <b>0161 639 0059</b></p>
+          <div class="notes-section">
+            <label for="notes-bentinck-street">Your notes</label>
+            <textarea id="notes-bentinck-street" class="notes-input" data-note-id="bentinck-street" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.rightmove.co.uk/properties/91397409" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="1" data-area="M15" data-source="Rightmove" data-price="1100" data-movein="2026-09-01" data-flagged="false" data-search="city gate 3 blantyre street castlefield m15" data-id="city-gate-3">
+        <img class="photo" src="https://media.rightmove.co.uk/dir/property-photo/f5912d25e/91858953/f5912d25e2fe7095dced8b265bfa475a_max_656x437.jpeg" alt="City Gate 3">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,100 pcm</span><div class="badges"><span class="badge">1 bed · 1 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">City Gate 3, 5 Blantyre Street</p>
+          <p class="area">Castlefield, M15</p>
+          <div class="meta-row"><span>Move-in: <b>1 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">True 1-bed, double bedroom, open-plan lounge with balcony. Near Deansgate and Cornbrook Metrolink.</p>
+          <p class="note">☎ Thornley Groves — <b>0161 241 5875</b></p>
+          <div class="notes-section">
+            <label for="notes-city-gate-3">Your notes</label>
+            <textarea id="notes-city-gate-3" class="notes-input" data-note-id="city-gate-3" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.rightmove.co.uk/properties/91858953" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="1" data-area="M15" data-source="Rightmove" data-price="1050" data-movein="2026-09-01" data-flagged="false" data-search="kelso place st georges island m15 1 bed" data-id="kelso-place-1bed">
+        <img class="photo" src="https://media.rightmove.co.uk/dir/property-photo/fc1b87b7b/169649747/fc1b87b7b0f55aa1a936972f906800b9_max_656x437.png" alt="Kelso Place, St Georges Island">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,050 pcm</span><div class="badges"><span class="badge">1 bed · 1 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">Kelso Place, St Georges Island</p>
+          <p class="area">M15</p>
+          <div class="meta-row"><span>Move-in: <b>Ask agent</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">True 1-bed, generously sized bedroom, floor-to-ceiling windows, private balcony. Same development as the 2-bed St Georges Island listing above, but a smaller unit — has concierge service.</p>
+          <p class="note">☎ Malthouse Lettings — <b>01903 969097</b></p>
+          <div class="notes-section">
+            <label for="notes-kelso-place-1bed">Your notes</label>
+            <textarea id="notes-kelso-place-1bed" class="notes-input" data-note-id="kelso-place-1bed" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.rightmove.co.uk/properties/169649747" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="1" data-area="M15" data-source="Rightmove" data-price="1050" data-movein="2026-09-11" data-flagged="false" data-search="the ropeworks little peter street m15" data-id="the-ropeworks">
+        <img class="photo" src="https://media.rightmove.co.uk/dir/property-photo/31d433f16/91728813/31d433f1626946221f881d2a28458275_max_656x437.jpeg" alt="The Ropeworks">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,050 pcm</span><div class="badges"><span class="badge">1 bed · 1 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">The Ropeworks, 33 Little Peter Street</p>
+          <p class="area">Southern Gateway, M15</p>
+          <div class="meta-row"><span>Move-in: <b>11 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">True 1-bed, ground floor, spacious, luxury kitchen, double shower and separate bath. Close to Deansgate station.</p>
+          <p class="note">☎ Thornley Groves — <b>0161 241 5875</b></p>
+          <p class="enquired">✓ You already enquired about this one</p>
+          <div class="notes-section">
+            <label for="notes-the-ropeworks">Your notes</label>
+            <textarea id="notes-the-ropeworks" class="notes-input" data-note-id="the-ropeworks" placeholder="Jot anything here — questions to ask, gut feeling, viewing date…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.rightmove.co.uk/properties/91728813" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
     </div>
 
     <div class="empty-state" id="emptyState">No listings match those filters. Try widening your price range or clearing an area/source filter.</div>
@@ -1005,6 +1148,7 @@
   </footer>
 </div>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
 (function () {
   var grid = document.getElementById('resultsGrid');
@@ -1133,10 +1277,109 @@
 
     emptyState.style.display = visible.length === 0 ? 'block' : 'none';
     resultCount.innerHTML = '<b>' + visible.length + '</b> of <b>' + cards.length + '</b> listings shown';
+
+    updateMap(visible);
+  }
+
+  // ---- Map ----
+  var CITY_CENTRE = { lat: 53.4776, lng: -2.2436, label: "City centre (St Peter's Square)" };
+  var URBANCHAIN = { lat: 53.4624, lng: -2.2442, label: 'UrbanChain — Manchester Science Park, Greenheys Lane' };
+  var AREA_COORDS = {
+    M1:  { lat: 53.4784, lng: -2.2380 },
+    M3:  { lat: 53.4826, lng: -2.2542 },
+    M4:  { lat: 53.4838, lng: -2.2340 },
+    M5:  { lat: 53.4827, lng: -2.2642 },
+    M14: { lat: 53.4352, lng: -2.2138 },
+    M15: { lat: 53.4729, lng: -2.2486 },
+    M50: { lat: 53.4696, lng: -2.2842 }
+  };
+
+  function haversineMiles(a, b) {
+    var R = 3958.8;
+    var dLat = (b.lat - a.lat) * Math.PI / 180;
+    var dLng = (b.lng - a.lng) * Math.PI / 180;
+    var lat1 = a.lat * Math.PI / 180;
+    var lat2 = b.lat * Math.PI / 180;
+    var h = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+    return R * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h));
+  }
+
+  // Deterministic small offset so listings in the same postcode area don't stack on one pin
+  function jitter(id) {
+    var hash = 0;
+    for (var i = 0; i < id.length; i++) { hash = (hash * 31 + id.charCodeAt(i)) >>> 0; }
+    var angle = (hash % 360) * Math.PI / 180;
+    var radius = 0.0035 + (hash % 100) / 100 * 0.004;
+    return { dLat: Math.cos(angle) * radius, dLng: Math.sin(angle) * radius * 1.6 };
+  }
+
+  var map = null, listingLayer = null;
+  function initMap() {
+    if (typeof L === 'undefined' || !document.getElementById('map')) return;
+    map = L.map('map').setView([53.4740, -2.2450], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    function pin(color) {
+      return L.divIcon({
+        className: '',
+        html: '<div style="width:16px;height:16px;border-radius:50%;background:' + color + ';border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,0.3);"></div>',
+        iconSize: [16, 16],
+        iconAnchor: [8, 8]
+      });
+    }
+
+    L.marker([CITY_CENTRE.lat, CITY_CENTRE.lng], { icon: pin('#1f2320') })
+      .addTo(map)
+      .bindPopup('<b>' + CITY_CENTRE.label + '</b>');
+
+    L.marker([URBANCHAIN.lat, URBANCHAIN.lng], { icon: pin('#c0392b') })
+      .addTo(map)
+      .bindPopup('<b>' + URBANCHAIN.label + '</b>');
+
+    listingLayer = L.layerGroup().addTo(map);
+  }
+
+  function updateMap(visibleCards) {
+    if (!map || !listingLayer) return;
+    listingLayer.clearLayers();
+
+    var pinIcon = L.divIcon({
+      className: '',
+      html: '<div style="width:14px;height:14px;border-radius:50%;background:#2f6f4f;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,0.3);"></div>',
+      iconSize: [14, 14],
+      iconAnchor: [7, 7]
+    });
+
+    visibleCards.forEach(function (card) {
+      var area = card.dataset.area;
+      var base = AREA_COORDS[area];
+      if (!base) return;
+      var id = card.dataset.id || card.dataset.search || area;
+      var off = jitter(id);
+      var pos = { lat: base.lat + off.dLat, lng: base.lng + off.dLng };
+
+      var address = card.querySelector('.address') ? card.querySelector('.address').textContent : area;
+      var price = card.querySelector('.price') ? card.querySelector('.price').textContent : '';
+      var link = card.querySelector('a.view') ? card.querySelector('a.view').href : '#';
+
+      var distCity = haversineMiles(pos, CITY_CENTRE).toFixed(1);
+      var distOffice = haversineMiles(pos, URBANCHAIN).toFixed(1);
+
+      var popupHtml = '<b>' + address + '</b>' + price +
+        '<div class="popup-dist">≈ ' + distCity + ' mi to city centre<br>≈ ' + distOffice + ' mi to UrbanChain</div>' +
+        '<a href="' + link + '" target="_blank" rel="noopener">View listing →</a>';
+
+      L.marker([pos.lat, pos.lng], { icon: pinIcon }).addTo(listingLayer).bindPopup(popupHtml);
+    });
   }
 
   grid.style.display = 'grid';
   cards.forEach(function (c) { c.style.order = 0; });
+  initMap();
   render();
 })();
 </script>
