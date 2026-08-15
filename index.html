@@ -347,6 +347,35 @@
   .leaflet-popup-content b { display: block; margin-bottom: 2px; }
   .leaflet-popup-content .popup-dist { color: #55584f; font-size: 12px; }
   .leaflet-popup-content a { color: #2f6f4f; font-weight: 600; }
+
+  .tab-nav { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+  .tab-btn {
+    border: 1px solid var(--chip-border);
+    background: var(--chip-bg);
+    color: var(--ink);
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 9px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .tab-btn:hover { border-color: var(--ink); }
+  .tab-btn.active {
+    background: var(--chip-active-bg);
+    color: var(--chip-active-ink);
+    border-color: var(--chip-active-bg);
+  }
+  .tab-panel { display: none; }
+  .tab-panel.active-panel { display: block; }
+  .tab-intro {
+    background: var(--enq-bg);
+    color: var(--enq-ink);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 18px;
+  }
 </style>
 </head>
 <body>
@@ -453,7 +482,13 @@
   </div>
   <!-- ============== END MAP ============== -->
 
-  <section>
+  <!-- ================= TABS ================= -->
+  <div class="tab-nav">
+    <button class="tab-btn active" data-tab="all">All listings</button>
+    <button class="tab-btn" data-tab="m1-premium">M1 2-bed/2-bath, £1,250–1,350</button>
+  </div>
+
+  <section class="tab-panel active-panel" data-tab-panel="all">
     <div class="section-head">
       <h2>All listings</h2>
       <span class="section-meta">Use the filters above to narrow down by bedrooms, area, source, price, or move-in date</span>
@@ -1148,6 +1183,255 @@
     </div>
   </section>
 
+  <section class="tab-panel" data-tab-panel="m1-premium">
+    <div class="section-head">
+      <h2>M1, 2-bed / 2-bath, £1,250–1,350</h2>
+      <span class="section-meta">13 real, currently-live listings matching all three criteria exactly</span>
+    </div>
+    <div class="tab-intro">
+      <strong>On "good reviews"</strong>
+      I looked for this specifically — checked Google and HomeViews (the main UK build-to-rent review site) for every building below. None of these smaller, agent-managed conversions (The Lock, Navigation House, Cambridge Mill, Montana House, Asia House, The Hacienda, The Grand, 1 River Street) have any review data online — not good, not bad. The Manchester developments that <em>do</em> have strong verified reviews (Kampus 4.72★, The Castings 4.97★, uhaus 4.63★, Burlington House 4.39★) all price 2-bed/2-bath units at £1,450+, above this budget. So this list is filtered strictly on price/beds/baths, not reviews — verify reputation yourself before committing (ask the agent for other tenants' contact details, check the specific unit's Google Street View, etc.). One flag below where I found a genuinely negative signal.
+    </div>
+    <div class="grid" id="m1PremiumGrid">
+
+      <div class="card" data-beds="2" data-area="M1" data-source="Rightmove" data-price="1250" data-movein="2026-10-01" data-flagged="false" data-search="the nile m1 premium" data-id="premium-the-nile">
+        <img class="photo" src="https://media.rightmove.co.uk/property-photo/f479aba05/91968033/f479aba050c2f19dc554d759e4b0d303.jpeg" alt="The Nile">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,250 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">The Nile</p>
+          <p class="area">Manchester City Centre, M1</p>
+          <div class="meta-row"><span>Move-in: <b>1 Oct 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">Two double bedrooms, balcony, underground parking. Also appears in the main list above.</p>
+          <p class="note">☎ O'Connor Bowden — <b>0161 524 8920</b></p>
+          <div class="notes-section">
+            <label for="notes-premium-the-nile">Your notes</label>
+            <textarea id="notes-premium-the-nile" class="notes-input" data-note-id="premium-the-nile" placeholder="Jot anything here…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.rightmove.co.uk/properties/91968033" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M1" data-source="Rightmove" data-price="1300" data-movein="2026-09-03" data-flagged="false" data-search="the wentwood m1 premium" data-id="premium-wentwood">
+        <img class="photo" src="https://media.rightmove.co.uk/property-photo/72c8ae6cf/91910193/72c8ae6cfb9427d8d3cc0e3e34754d44.jpeg" alt="The Wentwood">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,300 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">The Wentwood, Newton Street</p>
+          <p class="area">Manchester City Centre, M1</p>
+          <div class="meta-row"><span>Move-in: <b>3 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">Fully furnished, modern finish, private balcony. Also appears in the main list above.</p>
+          <p class="note">☎ Philip James Manchester — <b>0161 524 1595</b></p>
+          <div class="notes-section">
+            <label for="notes-premium-wentwood">Your notes</label>
+            <textarea id="notes-premium-wentwood" class="notes-input" data-note-id="premium-wentwood" placeholder="Jot anything here…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.rightmove.co.uk/properties/91910193" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M1" data-source="Rightmove" data-price="1250" data-movein="2026-09-18" data-flagged="false" data-search="the lock 41 whitworth street west m1 premium" data-id="premium-lock-41-whitworth">
+        <img class="photo" src="https://media.rightmove.co.uk/dir/property-photo/dc67b089b/91858974/dc67b089bf8f5eee522c630ecd5aae62_max_656x437.jpeg" alt="The Lock, 41 Whitworth Street West">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,250 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">The Lock, 41 Whitworth Street West</p>
+          <p class="area">Southern Gateway, M1</p>
+          <div class="meta-row"><span>Move-in: <b>18 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">2nd floor, en-suite off master plus main bathroom. Close to both universities and Deansgate.</p>
+          <p class="note">☎ Thornley Groves — <b>0161 241 5875</b></p>
+          <div class="notes-section">
+            <label for="notes-premium-lock-41-whitworth">Your notes</label>
+            <textarea id="notes-premium-lock-41-whitworth" class="notes-input" data-note-id="premium-lock-41-whitworth" placeholder="Jot anything here…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.rightmove.co.uk/properties/91858974" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M1" data-source="Zoopla" data-price="1300" data-movein="2026-08-31" data-flagged="false" data-search="the lock whitworth street west 2nd floor m1 premium" data-id="premium-lock-2nd-floor">
+        <img class="photo" src="https://lid.zoocdn.com/u/480/360/35ed0f38ba3648d8ec7f763043f1469f6cdcae98.jpg" alt="The Lock, Whitworth Street West">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,300 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Zoopla</span></div></div>
+          <p class="address">The Lock, Whitworth Street West</p>
+          <p class="area">M1</p>
+          <div class="meta-row"><span>Move-in: <b>Late Aug 2026</b></span><span>Council tax: <b>Not listed</b></span></div>
+          <p class="note">2nd floor, large balcony, large open-plan kitchen/living area. Near Rochdale Canal.</p>
+          <p class="note">Contact via Zoopla listing (agent not shown).</p>
+          <div class="notes-section">
+            <label for="notes-premium-lock-2nd-floor">Your notes</label>
+            <textarea id="notes-premium-lock-2nd-floor" class="notes-input" data-note-id="premium-lock-2nd-floor" placeholder="Jot anything here…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.zoopla.co.uk/to-rent/details/66311415/" target="_blank" rel="noopener">View on Zoopla →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M1" data-source="Zoopla" data-price="1350" data-movein="2026-10-05" data-flagged="false" data-search="the lock 6th floor parking m1 premium" data-id="premium-lock-6th-floor">
+        <img class="photo" src="https://lid.zoocdn.com/u/480/360/354b72b7e4c008b80cf446832e443040df537b82.jpg" alt="The Lock, Whitworth Street West">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,350 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Zoopla</span></div></div>
+          <p class="address">The Lock, Whitworth Street West</p>
+          <p class="area">M1</p>
+          <div class="meta-row"><span>Move-in: <b>5 Oct 2026</b></span><span>Council tax: <b>Band D</b></span></div>
+          <p class="note">6th floor, parking included — the only Lock unit here with parking. Also appears in the main list above.</p>
+          <p class="note">☎ Stevenson Whyte — <b>01615 066871</b></p>
+          <div class="notes-section">
+            <label for="notes-premium-lock-6th-floor">Your notes</label>
+            <textarea id="notes-premium-lock-6th-floor" class="notes-input" data-note-id="premium-lock-6th-floor" placeholder="Jot anything here…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.zoopla.co.uk/to-rent/details/55019541" target="_blank" rel="noopener">View on Zoopla →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M1" data-source="Rightmove" data-price="1350" data-movein="2026-08-28" data-flagged="false" data-search="the lock city centre m1 premium" data-id="premium-lock-city-centre">
+        <img class="photo" src="https://media.rightmove.co.uk/dir/property-photo/10aa2e6c9/91908204/10aa2e6c9af77aace66c4996c7729d58_max_656x437.jpeg" alt="The Lock, City Centre">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,350 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">The Lock</p>
+          <p class="area">Manchester City Centre, M1</p>
+          <div class="meta-row"><span>Move-in: <b>28 Aug 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">Wooden floors, master en-suite, private balcony, 24hr concierge. No parking.</p>
+          <p class="note">☎ Bridgfords Lettings — <b>0161 524 8757</b></p>
+          <div class="notes-section">
+            <label for="notes-premium-lock-city-centre">Your notes</label>
+            <textarea id="notes-premium-lock-city-centre" class="notes-input" data-note-id="premium-lock-city-centre" placeholder="Jot anything here…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.rightmove.co.uk/properties/91908204" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M1" data-source="Rightmove" data-price="1250" data-movein="2026-09-18" data-flagged="false" data-search="cambridge mill cambridge street m1 premium" data-id="premium-cambridge-mill">
+        <img class="photo" src="https://media.rightmove.co.uk/dir/property-photo/d077b2d14/91569798/d077b2d14ae592baf45e33cbc9b4c4aa_max_656x437.png" alt="Cambridge Mill">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,250 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">Cambridge Mill, Cambridge Street</p>
+          <p class="area">M1</p>
+          <div class="meta-row"><span>Move-in: <b>18 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">Loft-style mill conversion, exposed beams, en-suite shower room. Near Oxford Road station.</p>
+          <p class="note">☎ Kaytons Estate Agents — <b>0161 524 2324</b></p>
+          <div class="notes-section">
+            <label for="notes-premium-cambridge-mill">Your notes</label>
+            <textarea id="notes-premium-cambridge-mill" class="notes-input" data-note-id="premium-cambridge-mill" placeholder="Jot anything here…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.rightmove.co.uk/properties/91569798" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M1" data-source="Rightmove" data-price="1300" data-movein="2026-08-15" data-flagged="false" data-search="navigation house ducie street 2bath m1 premium" data-id="premium-navigation-house">
+        <img class="photo" src="https://media.rightmove.co.uk/dir/property-photo/7af27d0aa/91761897/7af27d0aadea3f059eb9237ead9609fb_max_656x437.jpeg" alt="Navigation House">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,300 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">Navigation House, Ducie Street</p>
+          <p class="area">M1 2DP</p>
+          <div class="meta-row"><span>Move-in: <b>Now</b></span><span>Council tax: <b>Band C</b></span></div>
+          <p class="note">Different unit from the £1,200 Navigation House in the main list — this one has an en-suite. Minutes from Piccadilly Station.</p>
+          <p class="note">☎ Wren Properties Ltd — <b>0161 524 6056</b></p>
+          <div class="notes-section">
+            <label for="notes-premium-navigation-house">Your notes</label>
+            <textarea id="notes-premium-navigation-house" class="notes-input" data-note-id="premium-navigation-house" placeholder="Jot anything here…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.rightmove.co.uk/properties/91761897" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M1" data-source="Zoopla" data-price="1350" data-movein="2026-08-28" data-flagged="true" data-search="1 river street southern gateway m1 premium" data-id="premium-1-river-street">
+        <img class="photo" src="https://lid.zoocdn.com/u/480/360/cb5f093f437faf533c6284b12650916be650434c.jpg" alt="1 River Street">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,350 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Zoopla</span></div></div>
+          <p class="address">1 River Street</p>
+          <p class="area">Southern Gateway, M1</p>
+          <div class="meta-row"><span>Move-in: <b>28 Aug 2026</b></span><span>Council tax: <b>Not listed</b></span></div>
+          <p class="note">3rd floor, Juliette balcony, master en-suite, secure allocated parking.</p>
+          <p class="note">Contact via Zoopla listing (agent not shown).</p>
+          <p class="flag">⚠ A "CityServe Apartments @ River Street" short-let operator at this same address has a very poor TripAdvisor score (1/5) — unclear if it's the same management as this long-let flat, but worth asking the agent directly about who manages the building day-to-day before committing.</p>
+          <div class="notes-section">
+            <label for="notes-premium-1-river-street">Your notes</label>
+            <textarea id="notes-premium-1-river-street" class="notes-input" data-note-id="premium-1-river-street" placeholder="Jot anything here…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.zoopla.co.uk/to-rent/details/71288738/" target="_blank" rel="noopener">View on Zoopla →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M1" data-source="Rightmove" data-price="1350" data-movein="2026-09-14" data-flagged="false" data-search="montana house princess street m1 premium" data-id="premium-montana-house">
+        <img class="photo" src="https://media.rightmove.co.uk/dir/property-photo/c6d5e5345/91906725/c6d5e534574c31ca648c91a0e9d9dddd_max_656x437.jpeg" alt="Montana House">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,350 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">Montana House, 136 Princess Street</p>
+          <p class="area">Southern Gateway, M1</p>
+          <div class="meta-row"><span>Move-in: <b>14 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">9th floor, master en-suite, balcony access. Near Oxford Road station, hospitals and the university.</p>
+          <p class="note">☎ Thornley Groves — <b>0161 241 5875</b></p>
+          <div class="notes-section">
+            <label for="notes-premium-montana-house">Your notes</label>
+            <textarea id="notes-premium-montana-house" class="notes-input" data-note-id="premium-montana-house" placeholder="Jot anything here…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.rightmove.co.uk/properties/91906725" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M1" data-source="Rightmove" data-price="1350" data-movein="2026-09-09" data-flagged="false" data-search="asia house princess street m1 premium" data-id="premium-asia-house">
+        <img class="photo" src="https://media.rightmove.co.uk/dir/property-photo/3fbfa3c97/91261218/3fbfa3c9715bbd55b9e28278f6f32e9f_max_656x437.jpeg" alt="Asia House">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,350 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">Asia House, 82 Princess Street</p>
+          <p class="area">M1</p>
+          <div class="meta-row"><span>Move-in: <b>9 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">4th floor, en-suite, open-plan kitchen/living. Within half a mile of Piccadilly station.</p>
+          <p class="note">☎ Reeds Rains — <b>0161 524 5671</b></p>
+          <div class="notes-section">
+            <label for="notes-premium-asia-house">Your notes</label>
+            <textarea id="notes-premium-asia-house" class="notes-input" data-note-id="premium-asia-house" placeholder="Jot anything here…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.rightmove.co.uk/properties/91261218" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M1" data-source="Zoopla" data-price="1300" data-movein="2026-08-14" data-flagged="false" data-search="the hacienda whitworth street west m1 premium" data-id="premium-hacienda">
+        <img class="photo" src="https://lid.zoocdn.com/u/480/360/b517d7e195c8bb11090c74342dcce33a98474538.jpg" alt="The Hacienda">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,300 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Zoopla</span></div></div>
+          <p class="address">The Hacienda, Whitworth Street West</p>
+          <p class="area">M1</p>
+          <div class="meta-row"><span>Move-in: <b>14 Aug 2026</b></span><span>Council tax: <b>Band E</b></span></div>
+          <p class="note">2nd floor, canal-facing balcony, 24hr concierge and secure fob access. Redeveloped from the famous Hacienda nightclub site.</p>
+          <p class="note">☎ Reeds Rains — <b>0161 524 5671</b></p>
+          <div class="notes-section">
+            <label for="notes-premium-hacienda">Your notes</label>
+            <textarea id="notes-premium-hacienda" class="notes-input" data-note-id="premium-hacienda" placeholder="Jot anything here…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.zoopla.co.uk/to-rent/details/73730074/" target="_blank" rel="noopener">View on Zoopla →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M1" data-source="Zoopla" data-price="1350" data-movein="2026-07-31" data-flagged="false" data-search="the grand aytoun street m1 premium" data-id="premium-the-grand">
+        <img class="photo" src="https://lid.zoocdn.com/u/480/360/d9e44ef7d77e9720e5ee2d258d844817437b49f8.jpg" alt="The Grand">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,350 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Zoopla</span></div></div>
+          <p class="address">The Grand, Aytoun Street</p>
+          <p class="area">M1</p>
+          <div class="meta-row"><span>Move-in: <b>Now</b></span><span>Council tax: <b>Band E</b></span></div>
+          <p class="note">6th floor, 775 sq ft, en-suite, concierge. Just off Piccadilly Gardens.</p>
+          <p class="note">Contact via Zoopla listing (agent not shown).</p>
+          <div class="notes-section">
+            <label for="notes-premium-the-grand">Your notes</label>
+            <textarea id="notes-premium-the-grand" class="notes-input" data-note-id="premium-the-grand" placeholder="Jot anything here…" rows="2"></textarea>
+          </div>
+          <a class="view" href="https://www.zoopla.co.uk/to-rent/details/73861997/" target="_blank" rel="noopener">View on Zoopla →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <footer>
     <p>Sourced from Rightmove, Zoopla, X1 Sales &amp; Lettings, and OpenRent/OnTheMarket listings for Manchester, Greater Manchester. Prices, availability, and status can change — always confirm directly with the listing agent or landlord before making decisions.</p>
     <p>Compiled for Nikki by Claude.</p>
@@ -1159,6 +1443,7 @@
 (function () {
   var grid = document.getElementById('resultsGrid');
   var cards = Array.prototype.slice.call(grid.querySelectorAll('.card'));
+  var allCards = Array.prototype.slice.call(document.querySelectorAll('.card'));
   var emptyState = document.getElementById('emptyState');
   var resultCount = document.getElementById('resultCount');
 
@@ -1215,9 +1500,9 @@
     render();
   });
 
-  cards.forEach(function (card, idx) {
+  allCards.forEach(function (card, idx) {
     var btn = card.querySelector('.star-btn');
-    var id = 'card-' + idx;
+    var id = card.dataset.id || ('card-' + idx);
     card.dataset.cardId = id;
     btn.addEventListener('click', function () {
       starred[id] = !starred[id];
@@ -1391,13 +1676,27 @@
   }
 
   function annotateDistances() {
-    cards.forEach(function (card) {
+    allCards.forEach(function (card) {
       var loc = cardLocation(card);
       var metaRow = card.querySelector('.meta-row');
       if (!loc || !metaRow) return;
       var span = document.createElement('span');
       span.innerHTML = '📍 <b>' + loc.distCity + ' mi</b> centre · <b>' + loc.distOffice + ' mi</b> UrbanChain';
       metaRow.appendChild(span);
+    });
+  }
+
+  // ---- Tabs ----
+  function initTabs() {
+    var tabBtns = Array.prototype.slice.call(document.querySelectorAll('.tab-btn'));
+    var panels = Array.prototype.slice.call(document.querySelectorAll('.tab-panel'));
+    tabBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.dataset.tab;
+        tabBtns.forEach(function (b) { b.classList.toggle('active', b === btn); });
+        panels.forEach(function (p) { p.classList.toggle('active-panel', p.dataset.tabPanel === target); });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
     });
   }
 
@@ -1427,6 +1726,7 @@
   cards.forEach(function (c) { c.style.order = 0; });
   initMap();
   annotateDistances();
+  initTabs();
   render();
 })();
 </script>
