@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manchester Rental Shortlist</title>
+<style>
+  :root {
+    --bg: #f7f7f5;
+    --card-bg: #ffffff;
+    --ink: #1f2320;
+    --ink-soft: #55584f;
+    --line: #e4e2da;
+    --accent: #2f6f4f;
+    --accent-soft: #e8f2ec;
+    --flag-bg: #fbeee0;
+    --flag-ink: #8a5a1f;
+    --enq-bg: #eaf1fb;
+    --enq-ink: #29527a;
+    --price: #1f2320;
+    --chip-bg: #fff;
+    --chip-border: #d8d6cc;
+    --chip-active-bg: #1f2320;
+    --chip-active-ink: #fff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    padding: 40px 20px 80px;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  header { margin-bottom: 24px; }
+  h1 { font-size: 28px; margin: 0 0 6px; letter-spacing: -0.02em; }
+  .subtitle { color: var(--ink-soft); font-size: 15px; margin: 0; max-width: 720px; }
+  .updated { color: var(--ink-soft); font-size: 13px; margin-top: 10px; }
+
+  .callout {
+    background: var(--enq-bg);
+    color: var(--enq-ink);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 13.5px;
+    margin: 20px 0;
+    line-height: 1.5;
+  }
+  .callout strong { display: block; margin-bottom: 4px; }
+
+  /* ---- Filter bar ---- */
+  .filters {
+    position: sticky;
+    top: 12px;
+    z-index: 5;
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin: 22px 0 26px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  }
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+  .filter-row:last-child { margin-bottom: 0; }
+  .filter-group { display: flex; flex-direction: column; gap: 6px; }
+  .filter-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+  }
+  .chip-set { display: flex; flex-wrap: wrap; gap: 6px; max-width: 420px; }
+  .chip {
+    border: 1px solid var(--chip-border);
+    background: var(--chip-bg);
+    color: var(--ink);
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.12s, color 0.12s, border-color 0.12s;
+  }
+  .chip:hover { border-color: var(--ink); }
+  .chip.active {
+    background: var(--chip-active-bg);
+    color: var(--chip-active-ink);
+    border-color: var(--chip-active-bg);
+  }
+  .price-inputs { display: flex; align-items: center; gap: 6px; }
+  .price-inputs input {
+    width: 80px;
+    padding: 7px 9px;
+    border: 1px solid var(--chip-border);
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: inherit;
+  }
+  .price-inputs span { color: var(--ink-soft); font-size: 12.5px; }
+  select, .text-input {
+    padding: 7px 10px;
+    border: 1px solid var(--chip-border);
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: inherit;
+    background: #fff;
+    color: var(--ink);
+  }
+  .text-input { min-width: 180px; }
+  .toggle-row { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--ink); }
+  .toggle-row input { accent-color: var(--accent); width: 15px; height: 15px; }
+
+  .filter-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-top: 12px;
+    border-top: 1px solid var(--line);
+  }
+  #resultCount { font-size: 13px; color: var(--ink-soft); }
+  #resultCount b { color: var(--ink); }
+  .reset-btn {
+    border: none;
+    background: none;
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 4px 8px;
+  }
+  .reset-btn:hover { text-decoration: underline; }
+
+  section { margin-bottom: 34px; }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 10px;
+    margin-bottom: 18px;
+  }
+  .section-head h2 { font-size: 19px; margin: 0; }
+  .section-meta { font-size: 13px; color: var(--ink-soft); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .card img.photo {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    background: #eee;
+    display: block;
+  }
+  .star-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.9);
+    cursor: pointer;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b8b6ab;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  }
+  .star-btn.starred { color: #e0a716; }
+  .card-body {
+    padding: 14px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .price { font-size: 19px; font-weight: 700; color: var(--price); white-space: nowrap; }
+  .badges { display: flex; gap: 5px; flex-wrap: wrap; justify-content: flex-end; }
+  .badge {
+    font-size: 10.5px;
+    font-weight: 600;
+    padding: 3px 7px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .badge.source { background: #ececec; color: #444; }
+  .address { font-size: 15px; font-weight: 600; margin: 0; }
+  .area { font-size: 12.5px; color: var(--ink-soft); margin: 0; }
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 8px 0;
+    margin: 2px 0;
+  }
+  .meta-row span b { color: var(--ink); font-weight: 600; }
+  .note { font-size: 13px; color: var(--ink-soft); margin: 0; }
+  .flag {
+    background: var(--flag-bg);
+    color: var(--flag-ink);
+    font-size: 12px;
+    padding: 7px 9px;
+    border-radius: 8px;
+    line-height: 1.4;
+  }
+  .enquired {
+    background: var(--enq-bg);
+    color: var(--enq-ink);
+    font-size: 12px;
+    padding: 7px 9px;
+    border-radius: 8px;
+    line-height: 1.4;
+    font-weight: 600;
+  }
+  .card a.view {
+    margin-top: auto;
+    display: inline-block;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 9px 12px;
+    border-radius: 8px;
+    background: var(--ink);
+    color: #fff;
+    text-decoration: none;
+  }
+  .card a.view:hover { opacity: 0.85; }
+
+  .empty-state {
+    display: none;
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--ink-soft);
+    font-size: 14px;
+    border: 1px dashed var(--line);
+    border-radius: 12px;
+  }
+
+  .no-match {
+    background: var(--card-bg);
+    border: 1px dashed var(--line);
+    border-radius: 12px;
+    padding: 20px;
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-top: 18px;
+  }
+  .no-match strong { color: var(--ink); }
+
+  footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  footer p { margin: 4px 0; }
+
+  @media (max-width: 640px) {
+    .filters { position: static; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Manchester Rental Shortlist</h1>
+    <p class="subtitle">Pulled from Rightmove, Zoopla, X1 Sales &amp; Lettings, and a general web sweep (OnTheMarket / OpenRent) — furnished only, close to the city centre, excluding house shares, student lets, and shared/communal living setups.</p>
+    <p class="updated">Compiled 15 August 2026</p>
+  </header>
+
+  <div class="callout">
+    <strong>Heads up</strong>
+    While checking OpenRent, I noticed your account already shows "Enquired" on a few Manchester 2-bed listings you may have already reached out to: <b>Quebec Building (2-bed, M3)</b>, <b>Delta Point (M3)</b>, The Ropeworks (M15), Bengal Street (M4), St Wilfrids St (M15), and Woden Street (M5). Flagging in case you'd forgotten — no need to enquire again on those.
+  </div>
+
+  <!-- ================= FILTER BAR ================= -->
+  <div class="filters">
+    <div class="filter-row">
+      <div class="filter-group">
+        <span class="filter-label">Bedrooms</span>
+        <div class="chip-set" id="bedsChips">
+          <button class="chip active" data-beds="all">All</button>
+          <button class="chip" data-beds="1">1 bed</button>
+          <button class="chip" data-beds="2">2 bed</button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-label">Area (postcode)</span>
+        <div class="chip-set" id="areaChips">
+          <button class="chip active" data-area="all">All</button>
+          <button class="chip" data-area="M1">M1</button>
+          <button class="chip" data-area="M3">M3</button>
+          <button class="chip" data-area="M4">M4</button>
+          <button class="chip" data-area="M5">M5</button>
+          <button class="chip" data-area="M14">M14</button>
+          <button class="chip" data-area="M15">M15</button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-label">Source</span>
+        <div class="chip-set" id="sourceChips">
+          <button class="chip active" data-source="all">All</button>
+          <button class="chip" data-source="Rightmove">Rightmove</button>
+          <button class="chip" data-source="Zoopla">Zoopla</button>
+          <button class="chip" data-source="OpenRent">OpenRent</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="filter-row">
+      <div class="filter-group">
+        <span class="filter-label">Price range (pcm)</span>
+        <div class="price-inputs">
+          <input type="number" id="priceMin" placeholder="Min" min="0" step="25">
+          <span>–</span>
+          <input type="number" id="priceMax" placeholder="Max" min="0" step="25">
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-label">Sort by</span>
+        <select id="sortSelect">
+          <option value="price-asc">Price: low to high</option>
+          <option value="price-desc">Price: high to low</option>
+          <option value="movein-asc">Move-in date: soonest</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-label">Search</span>
+        <input type="text" class="text-input" id="searchInput" placeholder="Address, building name…">
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-label">&nbsp;</span>
+        <label class="toggle-row"><input type="checkbox" id="hideFlagged"> Hide flagged listings</label>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-label">&nbsp;</span>
+        <label class="toggle-row"><input type="checkbox" id="starredOnly"> ★ Starred only</label>
+      </div>
+    </div>
+
+    <div class="filter-footer">
+      <span id="resultCount"><b>0</b> of <b>0</b> listings shown</span>
+      <button class="reset-btn" id="resetBtn">Reset all filters</button>
+    </div>
+  </div>
+  <!-- ============== END FILTER BAR ============== -->
+
+  <section>
+    <div class="section-head">
+      <h2>All listings</h2>
+      <span class="section-meta">Use the filters above to narrow down by bedrooms, area, source, price, or move-in date</span>
+    </div>
+    <div class="grid" id="resultsGrid">
+
+      <!-- ============ 2 BED CARDS ============ -->
+      <div class="card" data-beds="2" data-area="M1" data-source="Rightmove" data-price="1250" data-movein="2026-10-01" data-flagged="false" data-search="the nile manchester city centre m1">
+        <img class="photo" src="https://media.rightmove.co.uk/property-photo/f479aba05/91968033/f479aba050c2f19dc554d759e4b0d303.jpeg" alt="The Nile">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,250 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">The Nile</p>
+          <p class="area">Manchester City Centre, M1</p>
+          <div class="meta-row"><span>Move-in: <b>1 Oct 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">Two double bedrooms, balcony, underground parking, short walk to Deansgate station.</p>
+          <p class="note">☎ O'Connor Bowden — <b>0161 524 8920</b></p>
+          <a class="view" href="https://www.rightmove.co.uk/properties/91968033" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M1" data-source="Rightmove" data-price="1200" data-movein="2026-09-16" data-flagged="false" data-search="navigation house ducie street northern quarter m1">
+        <img class="photo" src="https://media.rightmove.co.uk/property-photo/5211fea90/92038494/5211fea9084fc1153f56122c83bd9d59.jpeg" alt="Navigation House">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,200 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">Navigation House, Ducie Street</p>
+          <p class="area">Northern Quarter, M1</p>
+          <div class="meta-row"><span>Move-in: <b>16 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">Waterside setting in the Ducie Wharf development, balcony included.</p>
+          <p class="note">☎ Thornley Groves — <b>0161 241 5875</b></p>
+          <a class="view" href="https://www.rightmove.co.uk/properties/92038494" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M1" data-source="Rightmove" data-price="1300" data-movein="2026-09-03" data-flagged="false" data-search="the wentwood newton street manchester city centre m1">
+        <img class="photo" src="https://media.rightmove.co.uk/property-photo/72c8ae6cf/91910193/72c8ae6cfb9427d8d3cc0e3e34754d44.jpeg" alt="The Wentwood">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,300 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">The Wentwood, Newton Street</p>
+          <p class="area">Manchester City Centre, M1</p>
+          <div class="meta-row"><span>Move-in: <b>3 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">Fully furnished, modern finish, private balcony, heart of the city centre.</p>
+          <p class="note">☎ Philip James Manchester — <b>0161 524 1595</b></p>
+          <a class="view" href="https://www.rightmove.co.uk/properties/91910193" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M15" data-source="Rightmove" data-price="1250" data-movein="2026-09-15" data-flagged="false" data-search="st georges island kelso place castlefield m15">
+        <img class="photo" src="https://media.rightmove.co.uk/property-photo/7264cf661/92038503/7264cf661e6587b587b06a03068cdd30.jpeg" alt="St Georges Island">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,250 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">St Georges Island, Kelso Place</p>
+          <p class="area">Castlefield, M15</p>
+          <div class="meta-row"><span>Move-in: <b>15 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">Canal-side in Castlefield, close to Deansgate and Cornbrook Metrolink.</p>
+          <p class="note">☎ Thornley Groves — <b>0161 241 5875</b></p>
+          <a class="view" href="https://www.rightmove.co.uk/properties/92038503" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M15" data-source="Rightmove" data-price="1250" data-movein="2026-08-15" data-flagged="false" data-search="medlock place m15">
+        <img class="photo" src="https://media.rightmove.co.uk/property-photo/18e88bdfd/91951308/18e88bdfd54722a627a6ad6f6f31972d.jpeg" alt="Medlock Place">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,250 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">Medlock Place</p>
+          <p class="area">M15</p>
+          <div class="meta-row"><span>Move-in: <b>Now</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">Includes parking and garden access, close to the centre.</p>
+          <p class="note">☎ via OpenRent — <b>020 3322 3265</b></p>
+          <a class="view" href="https://www.rightmove.co.uk/properties/91951308" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M3" data-source="Rightmove" data-price="1200" data-movein="2026-09-18" data-flagged="false" data-search="zenith chapel street salford m3">
+        <img class="photo" src="https://media.rightmove.co.uk/property-photo/965a8b3e8/91966077/965a8b3e85df1472737a4e09e71fe48d.jpeg" alt="Zenith">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,200 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">Zenith, Chapel Street</p>
+          <p class="area">Salford, M3</p>
+          <div class="meta-row"><span>Move-in: <b>18 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">Just over the river from Spinningfields, communal roof terrace.</p>
+          <p class="note">☎ Reside — <b>0161 524 8177</b></p>
+          <a class="view" href="https://www.rightmove.co.uk/properties/91966077" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M3" data-source="Rightmove" data-price="1175" data-movein="2026-09-16" data-flagged="false" data-search="delta point salford m3">
+        <img class="photo" src="https://media.rightmove.co.uk/property-photo/4a20c9825/91976346/4a20c982572fe1adc93deab4d1ab82c7.jpeg" alt="Delta Point">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,175 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">Delta Point</p>
+          <p class="area">Salford, M3</p>
+          <div class="meta-row"><span>Move-in: <b>16 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">Cheapest of the central options, near city centre with good transport links.</p>
+          <p class="note">☎ via OpenRent — <b>020 3322 3265</b></p>
+          <p class="enquired">✓ You already enquired about this one on OpenRent</p>
+          <a class="view" href="https://www.rightmove.co.uk/properties/91976346" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M15" data-source="Rightmove" data-price="1300" data-movein="2026-08-15" data-flagged="false" data-search="bold street hulme m15">
+        <img class="photo" src="https://media.rightmove.co.uk/property-photo/00826abf6/90177117/00826abf64e2350f520c0bccc3b12c92.png" alt="Bold Street">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,300 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">Bold Street</p>
+          <p class="area">Hulme, M15</p>
+          <div class="meta-row"><span>Move-in: <b>Now</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">Contemporary finish, short hop into the centre from Hulme.</p>
+          <p class="note">☎ C &amp; R Properties — <b>0161 524 4976</b></p>
+          <a class="view" href="https://www.rightmove.co.uk/properties/90177117" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M1" data-source="Zoopla" data-price="1350" data-movein="2026-10-05" data-flagged="false" data-search="the lock whitworth street west manchester city centre m1">
+        <img class="photo" src="https://lid.zoocdn.com/u/480/360/354b72b7e4c008b80cf446832e443040df537b82.jpg" alt="The Lock, Whitworth Street West">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,350 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Zoopla</span></div></div>
+          <p class="address">The Lock, Whitworth Street West</p>
+          <p class="area">Manchester City Centre, M1</p>
+          <div class="meta-row"><span>Move-in: <b>5 Oct 2026</b></span><span>Council tax: <b>Band D</b></span></div>
+          <p class="note">6th floor, parking included, close to the universities and Deansgate.</p>
+          <p class="note">☎ Stevenson Whyte — <b>01615 066871</b></p>
+          <a class="view" href="https://www.zoopla.co.uk/to-rent/details/55019541" target="_blank" rel="noopener">View on Zoopla →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M14" data-source="Zoopla" data-price="1325" data-movein="2026-08-29" data-flagged="false" data-search="rusholme place devell house m14">
+        <img class="photo" src="https://lid.zoocdn.com/u/480/360/7b2f0a6cb53434739b5525df67c9278f9fe518df.jpg" alt="Rusholme Place">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,325 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Zoopla</span></div></div>
+          <p class="address">Rusholme Place, Devell House</p>
+          <p class="area">M14 (~1.5 miles out)</p>
+          <div class="meta-row"><span>Move-in: <b>29 Aug 2026</b></span><span>Council tax: <b>Band B</b></span></div>
+          <p class="note">Near University of Manchester. Balcony, ensuite, lift, parking. Bit further from the centre than the others here.</p>
+          <p class="note">☎ Property Genius — <b>01619 375002</b></p>
+          <a class="view" href="https://www.zoopla.co.uk/to-rent/details/73989397" target="_blank" rel="noopener">View on Zoopla →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M15" data-source="Zoopla" data-price="1350" data-movein="2026-10-10" data-flagged="false" data-search="city road east city south m15">
+        <img class="photo" src="https://lid.zoocdn.com/u/480/360/242e051c33efbcb4f584042eb11dd8df5000efad.jpg" alt="City Road East">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,350 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Zoopla</span></div></div>
+          <p class="address">City Road East, City South</p>
+          <p class="area">M15</p>
+          <div class="meta-row"><span>Move-in: <b>10 Oct 2026</b></span><span>Council tax: <b>Band D</b></span></div>
+          <p class="note">Secure parking, prime spot near the centre.</p>
+          <p class="note">☎ Property Genius — <b>01619 379802</b></p>
+          <a class="view" href="https://www.zoopla.co.uk/to-rent/details/73986392" target="_blank" rel="noopener">View on Zoopla →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M3" data-source="Zoopla" data-price="1300" data-movein="2026-08-31" data-flagged="false" data-search="spectrum block 3 blackfriars road salford m3">
+        <img class="photo" src="https://lid.zoocdn.com/u/480/360/a8723ebb8ca7fa7be1762ced765bd1990369e390.jpg" alt="Spectrum Block 3">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,300 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">Zoopla</span></div></div>
+          <p class="address">Spectrum Block 3, Blackfriars Road</p>
+          <p class="area">Salford, M3</p>
+          <div class="meta-row"><span>Move-in: <b>31 Aug 2026</b></span><span>Council tax: <b>Band D</b></span></div>
+          <p class="note">Short walk from Deansgate and Spinningfields. No pets except service dogs (building policy).</p>
+          <p class="note">☎ Jordan Fishwick — <b>01615 061588</b></p>
+          <a class="view" href="https://www.zoopla.co.uk/to-rent/details/73971248" target="_blank" rel="noopener">View on Zoopla →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M3" data-source="OpenRent" data-price="1250" data-movein="2026-09-20" data-flagged="false" data-search="quebec building m3">
+        <img class="photo" src="https://imagescdn.openrent.co.uk/listings/1334079/o_1ft36u9s698k1slvo22e2l8ck.JPG" alt="Quebec Building 2-bed">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,250 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">OpenRent</span></div></div>
+          <p class="address">Quebec Building</p>
+          <p class="area">M3</p>
+          <div class="meta-row"><span>Move-in: <b>20 Sep 2026</b></span><span>Council tax: <b>Not listed</b></span></div>
+          <p class="note">Two double bedrooms, 3-minute walk to Deansgate.</p>
+          <p class="note">Contact via OpenRent enquiry form (private landlord, no listed phone).</p>
+          <p class="enquired">✓ You already enquired about this one</p>
+          <a class="view" href="https://www.openrent.co.uk/3000861" target="_blank" rel="noopener">View on OpenRent →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M4" data-source="OpenRent" data-price="1300" data-movein="2026-08-23" data-flagged="false" data-search="barton place m4">
+        <img class="photo" src="https://imagescdn.openrent.co.uk/listings/2571036/o_1j1dcjed11aehqg833bj5o1pue0.JPG" alt="Barton Place">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,300 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">OpenRent</span></div></div>
+          <p class="address">Barton Place</p>
+          <p class="area">M4</p>
+          <div class="meta-row"><span>Move-in: <b>23 Aug 2026</b></span><span>Council tax: <b>Not listed</b></span></div>
+          <p class="note">Top floor, allocated parking space.</p>
+          <p class="note">Contact via OpenRent enquiry form (private landlord, no listed phone).</p>
+          <a class="view" href="https://www.openrent.co.uk/2984768" target="_blank" rel="noopener">View on OpenRent →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="2" data-area="M4" data-source="OpenRent" data-price="1350" data-movein="2026-08-10" data-flagged="false" data-search="malta street m4">
+        <img class="photo" src="https://imagescdn.openrent.co.uk/listings/2238124/o_1ibecgtvv10t81ksl1j66vqe8r05.JPG" alt="Malta Street">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,350 pcm</span><div class="badges"><span class="badge">2 bed · 2 bath</span><span class="badge source">OpenRent</span></div></div>
+          <p class="address">Malta Street</p>
+          <p class="area">M4</p>
+          <div class="meta-row"><span>Move-in: <b>10 Aug 2026</b></span><span>Council tax: <b>Not listed</b></span></div>
+          <p class="note">Green Quarter / Northern Quarter side.</p>
+          <p class="note">Contact via OpenRent enquiry form (private landlord, no listed phone).</p>
+          <a class="view" href="https://www.openrent.co.uk/2983935" target="_blank" rel="noopener">View on OpenRent →</a>
+        </div>
+      </div>
+
+      <!-- ============ 1 BED CARDS ============ -->
+      <div class="card" data-beds="1" data-area="M4" data-source="Rightmove" data-price="995" data-movein="2026-09-02" data-flagged="false" data-search="the umbrella factory shudehill northern quarter m4">
+        <img class="photo" src="https://media.rightmove.co.uk/property-photo/add7ec848/91862565/add7ec848a06638a72e73501c8e121be.jpeg" alt="The Umbrella Factory">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£995 pcm</span><div class="badges"><span class="badge">1 bed · 1 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">The Umbrella Factory, Shudehill</p>
+          <p class="area">Northern Quarter, M4</p>
+          <div class="meta-row"><span>Move-in: <b>2 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">Proper separate lounge and bedroom, converted mill next to Shudehill tram stop.</p>
+          <p class="note">☎ Philip James Manchester — <b>0161 524 1595</b></p>
+          <a class="view" href="https://www.rightmove.co.uk/properties/91862565" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="1" data-area="M5" data-source="Rightmove" data-price="950" data-movein="2026-09-07" data-flagged="false" data-search="ordsall lane salford m5">
+        <img class="photo" src="https://media.rightmove.co.uk/property-photo/0ce90f086/91853799/0ce90f086e5d1e15708d1fe85460a44a.jpeg" alt="Ordsall Lane">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£950 pcm</span><div class="badges"><span class="badge">1 bed · 1 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">Ordsall Lane</p>
+          <p class="area">Salford, M5</p>
+          <div class="meta-row"><span>Move-in: <b>7 Sep 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">Exact match for your move-in window. About a mile from the centre.</p>
+          <p class="note">☎ via OpenRent — <b>020 3322 3265</b></p>
+          <a class="view" href="https://www.rightmove.co.uk/properties/91853799" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="1" data-area="M3" data-source="Rightmove" data-price="950" data-movein="2026-08-27" data-flagged="false" data-search="the royal wilton place salford m3">
+        <img class="photo" src="https://media.rightmove.co.uk/property-photo/018f39eff/175052195/018f39efff9eb562951c92e828b3598b.jpeg" alt="The Royal">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£950 pcm</span><div class="badges"><span class="badge">1 bed · 1 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">The Royal, Wilton Place</p>
+          <p class="area">Salford, M3</p>
+          <div class="meta-row"><span>Move-in: <b>27 Aug 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">Separate living room, close to the city centre.</p>
+          <p class="note">☎ Philip James Manchester — <b>0161 524 1595</b></p>
+          <a class="view" href="https://www.rightmove.co.uk/properties/175052195" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="1" data-area="M3" data-source="Rightmove" data-price="900" data-movein="2026-08-27" data-flagged="false" data-search="quebec building m3 1 bed">
+        <img class="photo" src="https://media.rightmove.co.uk/property-photo/791432ac1/90270393/791432ac17a6d89f1bbb62681453adb9.jpeg" alt="Quebec Building 1-bed">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£900 pcm</span><div class="badges"><span class="badge">1 bed · 1 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">Quebec Building</p>
+          <p class="area">M3</p>
+          <div class="meta-row"><span>Move-in: <b>27 Aug 2026</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">Double bedroom, private balcony, ~5 min walk to the centre.</p>
+          <p class="note">☎ Belvoir — <b>0161 524 7183</b></p>
+          <a class="view" href="https://www.rightmove.co.uk/properties/90270393" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="1" data-area="M3" data-source="Rightmove" data-price="880" data-movein="2026-08-15" data-flagged="true" data-search="adelphi st salford m3">
+        <img class="photo" src="https://media.rightmove.co.uk/property-photo/7bea50dfd/91991505/7bea50dfd8b247be5c0aa2a52afbc937.jpeg" alt="Adelphi St">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£880 pcm</span><div class="badges"><span class="badge">1 bed · 1 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">Adelphi St</p>
+          <p class="area">Salford, M3</p>
+          <div class="meta-row"><span>Move-in: <b>Now</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">Good value, near the centre.</p>
+          <p class="note">☎ via OpenRent — <b>020 3322 3265</b></p>
+          <p class="flag">⚠ Building has a communal entrance/corridor (normal for apartment blocks) — the flat itself is private, not shared.</p>
+          <a class="view" href="https://www.rightmove.co.uk/properties/91991505" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="1" data-area="M1" data-source="Rightmove" data-price="825" data-movein="2026-08-15" data-flagged="true" data-search="bracken house charles street manchester city centre m1">
+        <img class="photo" src="https://media.rightmove.co.uk/property-photo/ff7089f0d/91862586/ff7089f0d06609e33a23ae95fde84523.jpeg" alt="Bracken House">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£825 pcm</span><div class="badges"><span class="badge">1 bed · 1 bath</span><span class="badge source">Rightmove</span></div></div>
+          <p class="address">Bracken House, Charles Street</p>
+          <p class="area">Manchester City Centre, M1</p>
+          <div class="meta-row"><span>Move-in: <b>Now</b></span><span>Council tax: <b>Ask agent</b></span></div>
+          <p class="note">Cheapest option, right off Oxford Road near the university.</p>
+          <p class="note">☎ Philip James Manchester — <b>0161 524 1595</b></p>
+          <p class="flag">⚠ Photos show the bed in the same open room as the sofa/kitchen — may live more like a studio despite being listed as 1 bed. Confirm with the agent.</p>
+          <a class="view" href="https://www.rightmove.co.uk/properties/91862586" target="_blank" rel="noopener">View on Rightmove →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="1" data-area="M3" data-source="Zoopla" data-price="1000" data-movein="2026-09-22" data-flagged="false" data-search="adelphi wharf 3 salford m3">
+        <img class="photo" src="https://lid.zoocdn.com/u/480/360/6e647b722e57f0e42c79865c3537ac3ea8930590.jpg" alt="Adelphi Wharf 3">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,000 pcm</span><div class="badges"><span class="badge">1 bed · 1 bath</span><span class="badge source">Zoopla</span></div></div>
+          <p class="address">Adelphi Wharf 3</p>
+          <p class="area">Salford, M3</p>
+          <div class="meta-row"><span>Move-in: <b>22 Sep 2026</b></span><span>Council tax: <b>Band A</b></span></div>
+          <p class="note">At the top of your budget, and a little later than your target week — but a genuinely private flat, no shared facilities.</p>
+          <p class="note">☎ Qube Residential — <b>01619 376276</b></p>
+          <a class="view" href="https://www.zoopla.co.uk/to-rent/details/58152844" target="_blank" rel="noopener">View on Zoopla →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="1" data-area="M4" data-source="OpenRent" data-price="950" data-movein="2026-08-15" data-flagged="false" data-search="withy grove m4 northern quarter corn exchange">
+        <img class="photo" src="https://imagescdn.openrent.co.uk/listings/2806988/o_1jia5j0qucm11ohb1pdolc21ot4.JPG" alt="Withy Grove">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£950 pcm</span><div class="badges"><span class="badge">1 bed · 1 bath</span><span class="badge source">OpenRent</span></div></div>
+          <p class="address">Withy Grove</p>
+          <p class="area">M4 (Northern Quarter, near Corn Exchange)</p>
+          <div class="meta-row"><span>Move-in: <b>Ask landlord</b></span><span>Council tax: <b>Not listed</b></span></div>
+          <p class="note">Immaculately presented, close to Corn Exchange and Northern Quarter.</p>
+          <p class="note">Contact via OpenRent enquiry form (private landlord, no listed phone).</p>
+          <a class="view" href="https://www.openrent.co.uk/2999293" target="_blank" rel="noopener">View on OpenRent →</a>
+        </div>
+      </div>
+
+      <div class="card" data-beds="1" data-area="M4" data-source="OpenRent" data-price="1000" data-movein="2026-08-03" data-flagged="false" data-search="masson place m4">
+        <img class="photo" src="https://imagescdn.openrent.co.uk/listings/2070576/o_1hta5mu916il1egb1qfi1l0h9hd2.JPG" alt="Masson Place">
+        <button class="star-btn" aria-label="Star this listing">★</button>
+        <div class="card-body">
+          <div class="card-top"><span class="price">£1,000 pcm</span><div class="badges"><span class="badge">1 bed · 1 bath</span><span class="badge source">OpenRent</span></div></div>
+          <p class="address">Masson Place</p>
+          <p class="area">M4</p>
+          <div class="meta-row"><span>Move-in: <b>3 Aug 2026</b></span><span>Council tax: <b>Not listed</b></span></div>
+          <p class="note">At the top of your budget, but private and centrally located.</p>
+          <p class="note">Contact via OpenRent enquiry form (private landlord, no listed phone).</p>
+          <a class="view" href="https://www.openrent.co.uk/2991034" target="_blank" rel="noopener">View on OpenRent →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="empty-state" id="emptyState">No listings match those filters. Try widening your price range or clearing an area/source filter.</div>
+
+    <div class="no-match">
+      <strong>X1 Sales &amp; Lettings — no matches.</strong> X1's Manchester developments (X1 Manchester Waters, X1 The Plaza, X1 Eastbank Tower, etc.) run well above both budgets — their cheapest 1-beds start around £1,025–£1,200 pcm, and 2-beds start around £1,450 pcm. Every unit is also built around shared amenities (on-site gyms, cinema rooms, overnight concierge/security), which is their whole model — so they wouldn't fit the "no communal areas" ask for the 1-bed search even if the price worked. Skipped rather than force a bad fit.
+    </div>
+  </section>
+
+  <footer>
+    <p>Sourced from Rightmove, Zoopla, X1 Sales &amp; Lettings, and OpenRent/OnTheMarket listings for Manchester, Greater Manchester. Prices, availability, and status can change — always confirm directly with the listing agent or landlord before making decisions.</p>
+    <p>Compiled for Nikki by Claude.</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var grid = document.getElementById('resultsGrid');
+  var cards = Array.prototype.slice.call(grid.querySelectorAll('.card'));
+  var emptyState = document.getElementById('emptyState');
+  var resultCount = document.getElementById('resultCount');
+
+  var state = {
+    beds: 'all',
+    area: 'all',
+    source: 'all',
+    priceMin: null,
+    priceMax: null,
+    search: '',
+    hideFlagged: false,
+    starredOnly: false,
+    sort: 'price-asc'
+  };
+  var starred = {};
+
+  function chipGroup(containerId, key) {
+    var container = document.getElementById(containerId);
+    container.addEventListener('click', function (e) {
+      var chip = e.target.closest('.chip');
+      if (!chip) return;
+      Array.prototype.forEach.call(container.querySelectorAll('.chip'), function (c) { c.classList.remove('active'); });
+      chip.classList.add('active');
+      state[key] = chip.dataset[key] || chip.getAttribute('data-' + key);
+      render();
+    });
+  }
+  chipGroup('bedsChips', 'beds');
+  chipGroup('areaChips', 'area');
+  chipGroup('sourceChips', 'source');
+
+  document.getElementById('priceMin').addEventListener('input', function (e) {
+    state.priceMin = e.target.value ? parseInt(e.target.value, 10) : null;
+    render();
+  });
+  document.getElementById('priceMax').addEventListener('input', function (e) {
+    state.priceMax = e.target.value ? parseInt(e.target.value, 10) : null;
+    render();
+  });
+  document.getElementById('searchInput').addEventListener('input', function (e) {
+    state.search = e.target.value.trim().toLowerCase();
+    render();
+  });
+  document.getElementById('sortSelect').addEventListener('change', function (e) {
+    state.sort = e.target.value;
+    render();
+  });
+  document.getElementById('hideFlagged').addEventListener('change', function (e) {
+    state.hideFlagged = e.target.checked;
+    render();
+  });
+  document.getElementById('starredOnly').addEventListener('change', function (e) {
+    state.starredOnly = e.target.checked;
+    render();
+  });
+
+  cards.forEach(function (card, idx) {
+    var btn = card.querySelector('.star-btn');
+    var id = 'card-' + idx;
+    card.dataset.cardId = id;
+    btn.addEventListener('click', function () {
+      starred[id] = !starred[id];
+      btn.classList.toggle('starred', !!starred[id]);
+      if (state.starredOnly) render();
+    });
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', function () {
+    state = { beds: 'all', area: 'all', source: 'all', priceMin: null, priceMax: null, search: '', hideFlagged: false, starredOnly: false, sort: 'price-asc' };
+    document.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('active'); });
+    document.querySelectorAll('.chip[data-beds="all"], .chip[data-area="all"], .chip[data-source="all"]').forEach(function (c) { c.classList.add('active'); });
+    document.getElementById('priceMin').value = '';
+    document.getElementById('priceMax').value = '';
+    document.getElementById('searchInput').value = '';
+    document.getElementById('sortSelect').value = 'price-asc';
+    document.getElementById('hideFlagged').checked = false;
+    document.getElementById('starredOnly').checked = false;
+    render();
+  });
+
+  function matches(card) {
+    if (state.beds !== 'all' && card.dataset.beds !== state.beds) return false;
+    if (state.area !== 'all' && card.dataset.area !== state.area) return false;
+    if (state.source !== 'all' && card.dataset.source !== state.source) return false;
+    var price = parseInt(card.dataset.price, 10);
+    if (state.priceMin !== null && price < state.priceMin) return false;
+    if (state.priceMax !== null && price > state.priceMax) return false;
+    if (state.search && card.dataset.search.indexOf(state.search) === -1) return false;
+    if (state.hideFlagged && card.dataset.flagged === 'true') return false;
+    if (state.starredOnly && !starred[card.dataset.cardId]) return false;
+    return true;
+  }
+
+  function render() {
+    var visible = cards.filter(matches);
+
+    visible.sort(function (a, b) {
+      if (state.sort === 'price-asc') return parseInt(a.dataset.price, 10) - parseInt(b.dataset.price, 10);
+      if (state.sort === 'price-desc') return parseInt(b.dataset.price, 10) - parseInt(a.dataset.price, 10);
+      if (state.sort === 'movein-asc') return a.dataset.movein.localeCompare(b.dataset.movein);
+      return 0;
+    });
+
+    cards.forEach(function (c) { c.style.display = 'none'; });
+    visible.forEach(function (c, i) {
+      c.style.display = '';
+      c.style.order = i;
+    });
+
+    emptyState.style.display = visible.length === 0 ? 'block' : 'none';
+    resultCount.innerHTML = '<b>' + visible.length + '</b> of <b>' + cards.length + '</b> listings shown';
+  }
+
+  grid.style.display = 'grid';
+  cards.forEach(function (c) { c.style.order = 0; });
+  render();
+})();
+</script>
+</body>
+</html>
