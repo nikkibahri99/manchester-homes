@@ -1355,31 +1355,50 @@
     });
 
     visibleCards.forEach(function (card) {
-      var area = card.dataset.area;
-      var base = AREA_COORDS[area];
-      if (!base) return;
-      var id = card.dataset.id || card.dataset.search || area;
-      var off = jitter(id);
-      var pos = { lat: base.lat + off.dLat, lng: base.lng + off.dLng };
+      var loc = cardLocation(card);
+      if (!loc) return;
 
-      var address = card.querySelector('.address') ? card.querySelector('.address').textContent : area;
+      var address = card.querySelector('.address') ? card.querySelector('.address').textContent : card.dataset.area;
       var price = card.querySelector('.price') ? card.querySelector('.price').textContent : '';
       var link = card.querySelector('a.view') ? card.querySelector('a.view').href : '#';
 
-      var distCity = haversineMiles(pos, CITY_CENTRE).toFixed(1);
-      var distOffice = haversineMiles(pos, URBANCHAIN).toFixed(1);
-
       var popupHtml = '<b>' + address + '</b>' + price +
-        '<div class="popup-dist">≈ ' + distCity + ' mi to city centre<br>≈ ' + distOffice + ' mi to UrbanChain</div>' +
+        '<div class="popup-dist">≈ ' + loc.distCity + ' mi to city centre<br>≈ ' + loc.distOffice + ' mi to UrbanChain</div>' +
         '<a href="' + link + '" target="_blank" rel="noopener">View listing →</a>';
 
-      L.marker([pos.lat, pos.lng], { icon: pinIcon }).addTo(listingLayer).bindPopup(popupHtml);
+      L.marker([loc.pos.lat, loc.pos.lng], { icon: pinIcon }).addTo(listingLayer).bindPopup(popupHtml);
+    });
+  }
+
+  function cardLocation(card) {
+    var area = card.dataset.area;
+    var base = AREA_COORDS[area];
+    if (!base) return null;
+    var id = card.dataset.id || card.dataset.search || area;
+    var off = jitter(id);
+    var pos = { lat: base.lat + off.dLat, lng: base.lng + off.dLng };
+    return {
+      pos: pos,
+      distCity: haversineMiles(pos, CITY_CENTRE).toFixed(1),
+      distOffice: haversineMiles(pos, URBANCHAIN).toFixed(1)
+    };
+  }
+
+  function annotateDistances() {
+    cards.forEach(function (card) {
+      var loc = cardLocation(card);
+      var metaRow = card.querySelector('.meta-row');
+      if (!loc || !metaRow) return;
+      var span = document.createElement('span');
+      span.innerHTML = '📍 <b>' + loc.distCity + ' mi</b> centre · <b>' + loc.distOffice + ' mi</b> UrbanChain';
+      metaRow.appendChild(span);
     });
   }
 
   grid.style.display = 'grid';
   cards.forEach(function (c) { c.style.order = 0; });
   initMap();
+  annotateDistances();
   render();
 })();
 </script>
